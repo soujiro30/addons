@@ -1,0 +1,50 @@
+<odoo>
+    <data>
+
+        <record model="ir.actions.act_window" id="hr_resignation_employee_action_view">
+            <field name="name">Resignation Clearance</field>
+            <field name="res_model">hr.resignation</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_employee_id': [active_id], 'default_employee_id': active_id}</field>
+        </record>
+
+        <record id="view_hr_resignation_hr_employee_inherited" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherited</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="%(hr_resignation_employee_action_view)d"
+                            type="action" class="oe_inline oe_stat_button"
+                            icon="fa-clipboard" help="Add/Edit/Review Resignation of employee"
+                            groups="hr.group_hr_user">
+                        <field name="resignation_count" widget="statinfo" string="Resignation" />
+                    </button>
+                </xpath>
+
+                <xpath expr="//field[@name='parent_id']" position="after">
+                    <label for="date_joined" string="Date Joined &amp; Separated"/>
+                    <div>
+                        <field name="date_joined" class="oe_inline" required="1"/> -
+                        <field name="date_separated" class="oe_inline"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_hr_resignation_hr_employee_public_inherited" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherited</field>
+            <field name="model">hr.employee.public</field>
+            <field name="inherit_id" ref="hr.hr_employee_public_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='parent_id']" position="after">
+                    <label for="date_joined" string="Date Joined &amp; Separated"/>
+                    <div>
+                        <field name="date_joined" class="oe_inline" required="1"/> -
+                        <field name="date_separated" class="oe_inline"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

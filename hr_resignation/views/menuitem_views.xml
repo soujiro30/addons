@@ -1,0 +1,38 @@
+<odoo>
+    <data>
+        <!--Main Menu-->
+        <menuitem id="main_resignation_root" name="Resignation" web_icon="hr_resignation,static/description/icon.png" groups="base.group_user"/>
+
+        <!--My Resignation-->
+        <menuitem id="main_my_hr_resignation_menu" name="My Resignation" parent="main_resignation_root" sequence="1"
+                  action="my_hr_resignation_action_view"/>
+
+        <!--All Resignation-->
+        <menuitem id="main_all_hr_resignation_menu" name="All Resignation" parent="main_resignation_root" sequence="2"
+                  action="all_hr_resignation_action_view" groups="hr_resignation.group_resignation_hr_manager"/>
+
+        <!--To Approve-->
+        <menuitem id="main_to_approve_menu" name="To Approve" parent="main_resignation_root" sequence="3"
+                  groups="hr_resignation.group_resignation_manager,hr_resignation.group_resignation_clearance_approval"/>
+
+        <!--To Approve Resignation-->
+        <menuitem id="main_to_approve_hr_resignation_menu" name="To Approve Resignation" parent="main_to_approve_menu" sequence="1"
+                  action="to_approve_hr_resignation_action_view" groups="hr_resignation.group_resignation_manager"/>
+
+        <!--To Approve Exit Clearance-->
+        <menuitem id="main_to_approve_hr_resignation_clearance_menu" name="To Approve Clearance" parent="main_to_approve_menu" sequence="2"
+                  action="to_approve_hr_resignation_clearance_action_view" groups="hr_resignation.group_resignation_clearance_approval"/>
+
+        <!--Configuration-->
+        <menuitem id="main_hr_resignation_configuration_menu" name="Configuration" parent="main_resignation_root" sequence="4"
+                  groups="hr_resignation.group_resignation_hr_manager"/>
+
+        <!--Resignation Type-->
+        <menuitem id="main_hr_resignation_type_menu" name="Resignation Type" parent="main_hr_resignation_configuration_menu" sequence="1"
+                  action="hr_resignation_stage_action" groups="hr_resignation.group_resignation_hr_manager"/>
+
+        <!--Exit Clearance Template-->
+        <menuitem id="main_hr_resignation_clearance_template_menu" name="Exit Clearance Template" parent="main_hr_resignation_configuration_menu" sequence="2"
+                  action="hr_resignation_clearance_template_action_view" groups="hr_resignation.group_resignation_hr_manager"/>
+    </data>
+</odoo>

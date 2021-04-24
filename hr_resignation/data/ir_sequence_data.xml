@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+        <record id="seq_hr_resignation" model="ir.sequence">
+            <field name="name">Resignation</field>
+            <field name="code">hr.resignation</field>
+            <field name="prefix">RES</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_hr_clearance_template" model="ir.sequence">
+            <field name="name">Clearance Template</field>
+            <field name="code">hr.resignation.clearance.template</field>
+            <field name="prefix">RST</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

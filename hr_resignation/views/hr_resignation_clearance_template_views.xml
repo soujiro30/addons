@@ -1,0 +1,77 @@
+<odoo>
+    <data>
+        <record id="hr_resignation_clearance_template_form_view" model="ir.ui.view">
+            <field name="name">hr.resignation.clearance.template.form</field>
+            <field name="model">hr.resignation.clearance.template</field>
+            <field name="arch" type="xml">
+                <form string="Exit Clearance Template">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="Name"/>
+                            <h2><field name="name" placeholder="auto-generated"/></h2>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="company_id" required="1" options="{'no_create':True}"/>
+                                <field name="department_id" required="1" options="{'no_create':True}"/>
+                                <field name="job_id" required="1" options="{'no_create':True}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="template_clearance" string="Exit Clearance Template">
+                                <field name="template_ids" nolabel="1">
+                                    <tree editable="top">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="clearance_template_id" invisible="1"/>
+                                        <field name="name" required="1"/>
+                                        <field name="signatory_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_resignation_clearance_template_tree_view" model="ir.ui.view">
+            <field name="name">hr.resignation.clearance.template.tree</field>
+            <field name="model">hr.resignation.clearance.template</field>
+            <field name="arch" type="xml">
+                <tree string="Exit Clearance Template">
+                    <field name="name"/>
+                    <field name="company_id"/>
+                    <field name="department_id"/>
+                    <field name="job_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_resignation_clearance_template_filter_view" model="ir.ui.view">
+            <field name="name">hr.resignation.clearance.template.filter</field>
+            <field name="model">hr.resignation.clearance.template</field>
+            <field name="arch" type="xml">
+                <search string="">
+                    <field name="name"/>
+                    <field name="company_id"/>
+                    <field name="department_id"/>
+                    <field name="job_id"/>
+                </search>
+           </field>
+        </record>
+
+        <record id="hr_resignation_clearance_template_action_view" model="ir.actions.act_window">
+            <field name="name">Exit Clearance Template</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.resignation.clearance.template</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+    </data>
+</odoo>
