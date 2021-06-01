@@ -1,0 +1,718 @@
+<odoo>
+    <data>
+        <record id="survey_exit_management_form" model="survey.survey">
+            <field name="title">Exit Interview Form</field>
+            <field name="state">open</field>
+            <field name="access_mode">token</field>
+            <field name="category">exit_management</field>
+            <field name="users_can_go_back" eval="True"/>
+            <field name="description" type="html">
+                <p>Please answer those questions to help exit management officers to preprocess your exit application.</p>
+            </field>
+            <field name="thank_you_message" type="html">
+                <p>Thank you for answering this survey. We will come back to you soon.</p>
+            </field>
+        </record>
+
+        <record id="survey_exit_management_form_p1_q1" model="survey.question">
+            <field name="title">Part I: Exit Interview Questionnaires</field>
+            <field name="survey_id" ref="survey_exit_management_form"/>
+            <field name="is_page" eval="True" />
+            <field name="sequence">1</field>
+            <field name="description" type="html">
+                <p>Please answer the questions. It will help us to understand your way of leaving the company.</p>
+            </field>
+        </record>
+
+         <record model="survey.question" id="survey_exit_management_form_p1_q2">
+            <field name="survey_id" ref="survey_exit_management_form"/>
+            <field name="sequence">2</field>
+            <field name="title">Before making your decision to leave, did you investigate other options that would enable you to stay?</field>
+            <field name="question_type">simple_choice</field>
+            <field name="display_mode">columns</field>
+            <field name="constr_mandatory" eval="True" />
+            <field name="comments_allowed" eval="True"/>
+            <field name="column_nb">2</field>
+            <field name="comments_message">If "Yes", Please specify:</field>
+        </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p1_q2_1">
+                    <field name="question_id" ref="survey_exit_management_form_p1_q2"/>
+                    <field name="sequence">1</field>
+                    <field name="value">Yes</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p1_q2_2">
+                    <field name="question_id" ref="survey_exit_management_form_p1_q2"/>
+                    <field name="sequence">2</field>
+                    <field name="value">No</field>
+                </record>
+
+        <record id="survey_exit_management_form_p1_q3" model="survey.question">
+            <field name="survey_id" ref="survey_exit_management_form"/>
+            <field name="sequence">3</field>
+            <field name="title">Why did you begin looking for a new job?</field>
+            <field name="constr_mandatory" eval="True" />
+            <field name="question_type">textbox</field>
+        </record>
+
+        <record id="survey_exit_management_form_p1_q4" model="survey.question">
+            <field name="survey_id" ref="survey_exit_management_form"/>
+            <field name="sequence">4</field>
+            <field name="title">What ultimately led you to accept the new position?</field>
+            <field name="constr_mandatory" eval="True" />
+            <field name="question_type">textbox</field>
+        </record>
+
+        <record id="survey_exit_management_form_p1_q5" model="survey.question">
+            <field name="survey_id" ref="survey_exit_management_form"/>
+            <field name="sequence">5</field>
+            <field name="title">How would you describe the culture of our company?</field>
+            <field name="constr_mandatory" eval="True" />
+            <field name="question_type">textbox</field>
+        </record>
+
+        <record id="survey_exit_management_form_p1_q6" model="survey.question">
+            <field name="survey_id" ref="survey_exit_management_form"/>
+            <field name="sequence">6</field>
+            <field name="title">What did you like most about working here? </field>
+            <field name="constr_mandatory" eval="True" />
+            <field name="question_type">textbox</field>
+        </record>
+
+        <record id="survey_exit_management_form_p1_q7" model="survey.question">
+            <field name="survey_id" ref="survey_exit_management_form"/>
+            <field name="sequence">7</field>
+            <field name="title">What kind of hurdles did you face professionally in the due course of your tenure?  </field>
+            <field name="constr_mandatory" eval="True" />
+            <field name="question_type">textbox</field>
+        </record>
+
+        <record id="survey_exit_management_form_p2_q1" model="survey.question">
+            <field name="title">Part II: Job Related- Rating Factors</field>
+            <field name="survey_id" ref="survey_exit_management_form"/>
+            <field name="is_page" eval="True" />
+            <field name="sequence">8</field>
+            <field name="description" type="html">
+                <p>Use the following scale to rate each factors
+            		by selecting one of the given choices</p>
+
+
+            		<table class="table table-bordered" style="width:60%">
+
+					  <tr>
+					    <th>RATING</th>
+					    <th>POINT VALUE </th>
+					  </tr>
+
+					  <br/>
+
+					  <tr>
+					    <th>Excellent</th>
+					    <th>5</th>
+					  </tr>
+
+					  <tr>
+					    <th>Fully Satisfactory</th>
+					    <th>4</th>
+					  </tr>
+
+					  <tr>
+					    <th>Satisfactory</th>
+					    <th>3</th>
+					  </tr>
+
+					  <tr>
+					    <th>Needs Improvement</th>
+					    <th>2</th>
+					  </tr>
+
+					  <tr>
+					    <th>Poor</th>
+					    <th>1</th>
+					  </tr>
+
+					</table>
+            </field>
+        </record>
+
+        <!-- Question 9 -->
+        <record model="survey.question" id="survey_exit_management_form_p2_q2">
+            <field name="survey_id" ref="survey_exit_management_form"/>
+            <field name="sequence">9</field>
+            <field name="title">Cooperation within your department</field>
+            <field name="question_type">simple_choice</field>
+            <field name="display_mode">columns</field>
+            <field name="constr_mandatory" eval="True" />
+            <field name="comments_allowed" eval="True"/>
+            <field name="column_nb">2</field>
+            <field name="comments_message">Comments</field>
+        </record>
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q2_1">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q2"/>
+                    <field name="sequence">1</field>
+                    <field name="value">[1] Poor</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q2_2">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q2"/>
+                    <field name="sequence">2</field>
+                    <field name="value">[2] Needs Improvement</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q2_3">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q2"/>
+                    <field name="sequence">3</field>
+                    <field name="value">[3] Satisfactory</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q2_4">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q2"/>
+                    <field name="sequence">4</field>
+                    <field name="value">[4] Fully Satisfactory</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q2_5">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q2"/>
+                    <field name="sequence">5</field>
+                    <field name="value">[5] Excellent</field>
+                </record>
+
+        <!-- Question 10 -->
+        <record model="survey.question" id="survey_exit_management_form_p2_q3">
+            <field name="survey_id" ref="survey_exit_management_form"/>
+            <field name="sequence">10</field>
+            <field name="title">Cooperation with other departments</field>
+            <field name="question_type">simple_choice</field>
+            <field name="display_mode">columns</field>
+            <field name="constr_mandatory" eval="True" />
+            <field name="comments_allowed" eval="True"/>
+            <field name="column_nb">2</field>
+            <field name="comments_message">Comments</field>
+        </record>
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q3_1">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q3"/>
+                    <field name="sequence">1</field>
+                    <field name="value">[1] Poor</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q3_2">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q3"/>
+                    <field name="sequence">2</field>
+                    <field name="value">[2] Needs Improvement</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q3_3">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q3"/>
+                    <field name="sequence">3</field>
+                    <field name="value">[3] Satisfactory</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q3_4">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q3"/>
+                    <field name="sequence">4</field>
+                    <field name="value">[4] Fully Satisfactory</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q3_5">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q3"/>
+                    <field name="sequence">5</field>
+                    <field name="value">[5] Excellent</field>
+                </record>
+
+        <!-- Question 11 -->
+        <record model="survey.question" id="survey_exit_management_form_p2_q4">
+            <field name="survey_id" ref="survey_exit_management_form"/>
+            <field name="sequence">11</field>
+            <field name="title">Communications in your department</field>
+            <field name="question_type">simple_choice</field>
+            <field name="display_mode">columns</field>
+            <field name="constr_mandatory" eval="True" />
+            <field name="comments_allowed" eval="True"/>
+            <field name="column_nb">2</field>
+            <field name="comments_message">Comments</field>
+        </record>
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q4_1">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q4"/>
+                    <field name="sequence">1</field>
+                    <field name="value">[1] Poor</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q4_2">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q4"/>
+                    <field name="sequence">2</field>
+                    <field name="value">[2] Needs Improvement</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q4_3">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q4"/>
+                    <field name="sequence">3</field>
+                    <field name="value">[3] Satisfactory</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q4_4">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q4"/>
+                    <field name="sequence">4</field>
+                    <field name="value">[4] Fully Satisfactory</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q4_5">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q4"/>
+                    <field name="sequence">5</field>
+                    <field name="value">[5] Excellent</field>
+                </record>
+
+        <!-- Question 12 -->
+        <record model="survey.question" id="survey_exit_management_form_p2_q5">
+            <field name="survey_id" ref="survey_exit_management_form"/>
+            <field name="sequence">12</field>
+            <field name="title">Communications within the company as a whole</field>
+            <field name="question_type">simple_choice</field>
+            <field name="display_mode">columns</field>
+            <field name="constr_mandatory" eval="True" />
+            <field name="comments_allowed" eval="True"/>
+            <field name="column_nb">2</field>
+            <field name="comments_message">Comments</field>
+        </record>
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q5_1">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q5"/>
+                    <field name="sequence">1</field>
+                    <field name="value">[1] Poor</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q5_2">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q5"/>
+                    <field name="sequence">2</field>
+                    <field name="value">[2] Needs Improvement</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q5_3">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q5"/>
+                    <field name="sequence">3</field>
+                    <field name="value">[3] Satisfactory</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q5_4">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q5"/>
+                    <field name="sequence">4</field>
+                    <field name="value">[4] Fully Satisfactory</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q5_5">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q5"/>
+                    <field name="sequence">5</field>
+                    <field name="value">[5] Excellent</field>
+                </record>
+
+        <!-- Question 13 -->
+        <record model="survey.question" id="survey_exit_management_form_p2_q6">
+            <field name="survey_id" ref="survey_exit_management_form"/>
+            <field name="sequence">13</field>
+            <field name="title">Job Satisfaction</field>
+            <field name="question_type">simple_choice</field>
+            <field name="display_mode">columns</field>
+            <field name="constr_mandatory" eval="True" />
+            <field name="comments_allowed" eval="True"/>
+            <field name="column_nb">2</field>
+            <field name="comments_message">Comments</field>
+        </record>
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q6_1">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q6"/>
+                    <field name="sequence">1</field>
+                    <field name="value">[1] Poor</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q6_2">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q6"/>
+                    <field name="sequence">2</field>
+                    <field name="value">[2] Needs Improvement</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q6_3">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q6"/>
+                    <field name="sequence">3</field>
+                    <field name="value">[3] Satisfactory</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q6_4">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q6"/>
+                    <field name="sequence">4</field>
+                    <field name="value">[4] Fully Satisfactory</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q6_5">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q6"/>
+                    <field name="sequence">5</field>
+                    <field name="value">[5] Excellent</field>
+                </record>
+
+        <!-- Question 14 -->
+        <record model="survey.question" id="survey_exit_management_form_p2_q7">
+            <field name="survey_id" ref="survey_exit_management_form"/>
+            <field name="sequence">14</field>
+            <field name="title">Growth Potential</field>
+            <field name="question_type">simple_choice</field>
+            <field name="display_mode">columns</field>
+            <field name="constr_mandatory" eval="True" />
+            <field name="comments_allowed" eval="True"/>
+            <field name="column_nb">2</field>
+            <field name="comments_message">Comments</field>
+        </record>
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q7_1">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q7"/>
+                    <field name="sequence">1</field>
+                    <field name="value">[1] Poor</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q7_2">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q7"/>
+                    <field name="sequence">2</field>
+                    <field name="value">[2] Needs Improvement</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q7_3">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q7"/>
+                    <field name="sequence">3</field>
+                    <field name="value">[3] Satisfactory</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q7_4">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q7"/>
+                    <field name="sequence">4</field>
+                    <field name="value">[4] Fully Satisfactory</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q7_5">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q7"/>
+                    <field name="sequence">5</field>
+                    <field name="value">[5] Excellent</field>
+                </record>
+
+        <!-- Question 15 -->
+        <record model="survey.question" id="survey_exit_management_form_p2_q8">
+            <field name="survey_id" ref="survey_exit_management_form"/>
+            <field name="sequence">15</field>
+            <field name="title">Training you received</field>
+            <field name="question_type">simple_choice</field>
+            <field name="display_mode">columns</field>
+            <field name="constr_mandatory" eval="True" />
+            <field name="comments_allowed" eval="True"/>
+            <field name="column_nb">2</field>
+            <field name="comments_message">Comments</field>
+        </record>
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q8_1">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q8"/>
+                    <field name="sequence">1</field>
+                    <field name="value">[1] Poor</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q8_2">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q8"/>
+                    <field name="sequence">2</field>
+                    <field name="value">[2] Needs Improvement</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q8_3">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q8"/>
+                    <field name="sequence">3</field>
+                    <field name="value">[3] Satisfactory</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q8_4">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q8"/>
+                    <field name="sequence">4</field>
+                    <field name="value">[4] Fully Satisfactory</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q8_5">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q8"/>
+                    <field name="sequence">5</field>
+                    <field name="value">[5] Excellent</field>
+                </record>
+
+        <!-- Question 16 -->
+        <record id="survey_exit_management_form_p3_q1" model="survey.question">
+            <field name="title">Part III: Supervision- Rating Factors</field>
+            <field name="survey_id" ref="survey_exit_management_form"/>
+            <field name="is_page" eval="True" />
+            <field name="sequence">16</field>
+            <field name="description" type="html">
+                <p>Use the following scale to rate each factors
+            		by selecting one of the given choices</p>
+
+
+            		<table class="table table-bordered" style="width:60%">
+
+					  <tr>
+					    <th>RATING</th>
+					    <th>POINT VALUE </th>
+					  </tr>
+
+					  <br/>
+
+					  <tr>
+					    <th>Excellent</th>
+					    <th>5</th>
+					  </tr>
+
+					  <tr>
+					    <th>Fully Satisfactory</th>
+					    <th>4</th>
+					  </tr>
+
+					  <tr>
+					    <th>Satisfactory</th>
+					    <th>3</th>
+					  </tr>
+
+					  <tr>
+					    <th>Needs Improvement</th>
+					    <th>2</th>
+					  </tr>
+
+					  <tr>
+					    <th>Poor</th>
+					    <th>1</th>
+					  </tr>
+
+					</table>
+            </field>
+        </record>
+
+        <!-- Question 17 -->
+        <record model="survey.question" id="survey_exit_management_form_p2_q9">
+            <field name="survey_id" ref="survey_exit_management_form"/>
+            <field name="sequence">17</field>
+            <field name="title">Demonstrated fair and equal treatment</field>
+            <field name="question_type">simple_choice</field>
+            <field name="display_mode">columns</field>
+            <field name="constr_mandatory" eval="True" />
+            <field name="comments_allowed" eval="True"/>
+            <field name="column_nb">2</field>
+            <field name="comments_message">Comments</field>
+        </record>
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q9_1">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q9"/>
+                    <field name="sequence">1</field>
+                    <field name="value">[1] Poor</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q9_2">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q9"/>
+                    <field name="sequence">2</field>
+                    <field name="value">[2] Needs Improvement</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q9_3">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q9"/>
+                    <field name="sequence">3</field>
+                    <field name="value">[3] Satisfactory</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q9_4">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q9"/>
+                    <field name="sequence">4</field>
+                    <field name="value">[4] Fully Satisfactory</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q9_5">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q9"/>
+                    <field name="sequence">5</field>
+                    <field name="value">[5] Excellent</field>
+                </record>
+
+        <!-- Question 18 -->
+        <record model="survey.question" id="survey_exit_management_form_p2_q10">
+            <field name="survey_id" ref="survey_exit_management_form"/>
+            <field name="sequence">18</field>
+            <field name="title">Provided recognition on the job</field>
+            <field name="question_type">simple_choice</field>
+            <field name="display_mode">columns</field>
+            <field name="constr_mandatory" eval="True" />
+            <field name="comments_allowed" eval="True"/>
+            <field name="column_nb">2</field>
+            <field name="comments_message">Comments</field>
+        </record>
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q10_1">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q10"/>
+                    <field name="sequence">1</field>
+                    <field name="value">[1] Poor</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q10_2">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q10"/>
+                    <field name="sequence">2</field>
+                    <field name="value">[2] Needs Improvement</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q10_3">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q10"/>
+                    <field name="sequence">3</field>
+                    <field name="value">[3] Satisfactory</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q10_4">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q10"/>
+                    <field name="sequence">4</field>
+                    <field name="value">[4] Fully Satisfactory</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q10_5">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q10"/>
+                    <field name="sequence">5</field>
+                    <field name="value">[5] Excellent</field>
+                </record>
+
+        <!-- Question 19 -->
+        <record model="survey.question" id="survey_exit_management_form_p2_q11">
+            <field name="survey_id" ref="survey_exit_management_form"/>
+            <field name="sequence">19</field>
+            <field name="title">Developed cooperation and teamwork</field>
+            <field name="question_type">simple_choice</field>
+            <field name="display_mode">columns</field>
+            <field name="constr_mandatory" eval="True" />
+            <field name="comments_allowed" eval="True"/>
+            <field name="column_nb">2</field>
+            <field name="comments_message">Comments</field>
+        </record>
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q11_1">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q11"/>
+                    <field name="sequence">1</field>
+                    <field name="value">[1] Poor</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q11_2">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q11"/>
+                    <field name="sequence">2</field>
+                    <field name="value">[2] Needs Improvement</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q11_3">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q11"/>
+                    <field name="sequence">3</field>
+                    <field name="value">[3] Satisfactory</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q11_4">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q11"/>
+                    <field name="sequence">4</field>
+                    <field name="value">[4] Fully Satisfactory</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q11_5">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q11"/>
+                    <field name="sequence">5</field>
+                    <field name="value">[5] Excellent</field>
+                </record>
+
+        <!-- Question 20 -->
+        <record model="survey.question" id="survey_exit_management_form_p2_q12">
+            <field name="survey_id" ref="survey_exit_management_form"/>
+            <field name="sequence">20</field>
+            <field name="title">Resolved complaints and problems</field>
+            <field name="question_type">simple_choice</field>
+            <field name="display_mode">columns</field>
+            <field name="constr_mandatory" eval="True" />
+            <field name="comments_allowed" eval="True"/>
+            <field name="column_nb">2</field>
+            <field name="comments_message">Comments</field>
+        </record>
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q12_1">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q12"/>
+                    <field name="sequence">1</field>
+                    <field name="value">[1] Poor</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q12_2">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q12"/>
+                    <field name="sequence">2</field>
+                    <field name="value">[2] Needs Improvement</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q12_3">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q12"/>
+                    <field name="sequence">3</field>
+                    <field name="value">[3] Satisfactory</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q12_4">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q12"/>
+                    <field name="sequence">4</field>
+                    <field name="value">[4] Fully Satisfactory</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q12_5">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q12"/>
+                    <field name="sequence">5</field>
+                    <field name="value">[5] Excellent</field>
+                </record>
+
+        <!-- Question 21 -->
+        <record model="survey.question" id="survey_exit_management_form_p2_q13">
+            <field name="survey_id" ref="survey_exit_management_form"/>
+            <field name="sequence">21</field>
+            <field name="title">Followed policies and practices</field>
+            <field name="question_type">simple_choice</field>
+            <field name="display_mode">columns</field>
+            <field name="constr_mandatory" eval="True" />
+            <field name="comments_allowed" eval="True"/>
+            <field name="column_nb">2</field>
+            <field name="comments_message">Comments</field>
+        </record>
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q13_1">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q13"/>
+                    <field name="sequence">1</field>
+                    <field name="value">[1] Poor</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q13_2">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q13"/>
+                    <field name="sequence">2</field>
+                    <field name="value">[2] Needs Improvement</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q13_3">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q13"/>
+                    <field name="sequence">3</field>
+                    <field name="value">[3] Satisfactory</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q13_4">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q13"/>
+                    <field name="sequence">4</field>
+                    <field name="value">[4] Fully Satisfactory</field>
+                </record>
+
+                <record model="survey.label" id="choice_survey_exit_management_form_p2_q13_5">
+                    <field name="question_id" ref="survey_exit_management_form_p2_q13"/>
+                    <field name="sequence">5</field>
+                    <field name="value">[5] Excellent</field>
+                </record>
+
+        <record id="survey_exit_management_form_p4_q1" model="survey.question">
+            <field name="title">Part IV: Exit Interview Plan</field>
+            <field name="survey_id" ref="survey_exit_management_form"/>
+            <field name="is_page" eval="True" />
+            <field name="sequence">22</field>
+            <field name="description" type="html">
+                <p>Please answer the questions. It will help us to understand your way of leaving the company.</p>
+            </field>
+        </record>
+
+        <record id="survey_exit_management_form_p4_q2" model="survey.question">
+            <field name="survey_id" ref="survey_exit_management_form"/>
+            <field name="sequence">23</field>
+            <field name="title">Any other feedback you'd like to give us?  </field>
+            <field name="constr_mandatory" eval="False" />
+            <field name="question_type">textbox</field>
+        </record>
+
+        <record id="survey_exit_management_form_p4_q3" model="survey.question">
+            <field name="survey_id" ref="survey_exit_management_form"/>
+            <field name="sequence">24</field>
+            <field name="title">Do you have any message you'd like to give to the company or your respective department?  </field>
+            <field name="constr_mandatory" eval="False" />
+            <field name="question_type">textbox</field>
+        </record>
+    </data>
+</odoo>

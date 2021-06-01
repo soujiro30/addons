@@ -1,0 +1,68 @@
+<odoo>
+    <data>
+        <record id="exit_management_probability_reason_0001" model="exit.management.probability.reason">
+            <field name="name">Better Job Opportunities</field>
+            <field name="sequence">1</field>
+        </record>
+        
+        <record id="exit_management_probability_reason_0002" model="exit.management.probability.reason">
+            <field name="name">Type of Work</field>
+            <field name="sequence">2</field>
+        </record>
+        
+        <record id="exit_management_probability_reason_0003" model="exit.management.probability.reason">
+            <field name="name">Rate of Pay</field>
+            <field name="sequence">3</field>
+        </record>
+        
+        <record id="exit_management_probability_reason_0004" model="exit.management.probability.reason">
+            <field name="name">Self-Employment</field>
+            <field name="sequence">4</field>
+        </record>
+        
+        <record id="exit_management_probability_reason_0005" model="exit.management.probability.reason">
+            <field name="name">Return to School</field>
+            <field name="sequence">5</field>
+        </record>
+        
+        <record id="exit_management_probability_reason_0006" model="exit.management.probability.reason">
+            <field name="name">Advancement Minimum Opportunity</field>
+            <field name="sequence">6</field>
+        </record>
+        
+        <record id="exit_management_probability_reason_0007" model="exit.management.probability.reason">
+            <field name="name">Excessive Job Pressures</field>
+            <field name="sequence">7</field>
+        </record>
+        
+        <record id="exit_management_probability_reason_0008" model="exit.management.probability.reason">
+            <field name="name">Working Conditions</field>
+            <field name="sequence">8</field>
+        </record>
+        
+        <record id="exit_management_probability_reason_0009" model="exit.management.probability.reason">
+            <field name="name">Inadequate Training</field>
+            <field name="sequence">9</field>
+        </record>
+        
+        <record id="exit_management_probability_reason_0010" model="exit.management.probability.reason">
+            <field name="name">Supervision</field>
+            <field name="sequence">10</field>
+        </record>
+        
+        <record id="exit_management_probability_reason_0011" model="exit.management.probability.reason">
+            <field name="name">Commuting Distance</field>
+            <field name="sequence">11</field>
+        </record>
+        
+        <record id="exit_management_probability_reason_0012" model="exit.management.probability.reason">
+            <field name="name">Family Circumstances</field>
+            <field name="sequence">12</field>
+        </record>
+        
+        <record id="exit_management_probability_reason_0013" model="exit.management.probability.reason">
+            <field name="name">Illness or physical condition</field>
+            <field name="sequence">13</field>
+        </record>
+    </data>
+</odoo>

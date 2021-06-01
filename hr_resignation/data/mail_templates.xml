@@ -1,0 +1,92 @@
+<odoo>
+    <data>
+         <record id="email_template_manager_waiting_approval" model="mail.template">
+            <field name="name">Exit Management - Waiting for Approval</field>
+            <field name="email_from">"${object.company_id.name|safe}" &lt;${(object.company_id.email or user.email)|safe}&gt;</field>
+            <field name="subject">Exit Management - Waiting for Approval</field>
+            <field name="partner_to">${object.manager_id.user_id.partner_id.id }</field>
+            <field name="model_id" ref="hr_resignation.model_hr_resignation"/>
+            <field name="lang">${object.manager_id.user_id.partner_id.lang}</field>
+            <field name="body_html" type="html">
+                <p>Dear ${object.manager_id.user_id.partner_id.name},</p>
+                <p>
+                    <br/>We would like to inform that your subordinate ${object.employee_id.name} is waiting for your approval.
+                </p>
+                <p>Please see the reason below of his/her leaving the company.</p>
+                <p>${object.reason}</p>
+                <p><br/>Thank you!</p><br/><br/>
+            </field>
+        </record>
+
+        <record id="email_template_sending_clearance_signatories" model="mail.template">
+            <field name="name">Exit Clearance - Waiting for Approval</field>
+            <field name="email_from">"${object.employee_id.company_id.name|safe}" &lt;${(object.employee_id.company_id.email or user.email)|safe}&gt;</field>
+            <field name="subject">Exit Clearance - Waiting for Approval</field>
+            <field name="partner_to">${object.signatory_id.user_id.partner_id.id}</field>
+            <field name="model_id" ref="hr_resignation.model_exit_clearance"/>
+            <field name="lang">${object.signatory_id.user_id.partner_id.lang}</field>
+            <field name="body_html" type="html">
+                <p>Dear ${object.signatory_id.user_id.partner_id.name},</p>
+                <p>
+                    <br/>We would like to inform that ${object.employee_id.name} is now waiting for your approval with the clearance description ${object.name}
+                </p>
+                <p><br/>Thank you!</p>
+            </field>
+        </record>
+
+        <record id="email_template_clearance_approval_reminder" model="mail.template">
+            <field name="name">Exit Clearance - Approval Reminder</field>
+            <field name="email_from">"${object.employee_id.company_id.name|safe}" &lt;${(object.employee_id.company_id.email or user.email)|safe}&gt;</field>
+            <field name="subject">Exit Clearance Approval Reminder</field>
+            <field name="partner_to">${object.signatory_id.user_id.partner_id.id}</field>
+            <field name="model_id" ref="hr_resignation.model_exit_clearance"/>
+            <field name="lang">${object.signatory_id.user_id.partner_id.lang}</field>
+            <field name="body_html" type="html">
+                <p>Dear ${object.signatory_id.user_id.partner_id.name},</p>
+                <p>
+                    <br/>We would like to remind you that ${object.employee_id.name} clearance is now waiting for your approval with the clearance description ${object.name}.
+                </p>
+                <p><br/>Thank you!</p>
+            </field>
+        </record>
+
+        <record id="email_template_retirement_reminder" model="mail.template">
+            <field name="name">Employee Retirement Reminder</field>
+            <field name="email_from">"${object.company_id.name|safe}" &lt;${(object.company_id.email or user.email)|safe}&gt;</field>
+            <field name="subject">Employee Retirement Reminder</field>
+            <field name="partner_to">${object.contract_id.hr_responsible_id.partner_id.id}</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="lang">${object.contract_id.hr_responsible_id.partner_id.lang}</field>
+            <field name="body_html" type="html">
+                <p>Dear ${object.contract_id.hr_responsible_id.partner_id.name},</p>
+                <p>
+                    <br/>We would like to remind you that ${object.name} is about to retire in the next 3 months.
+                    <br/>Please advice the employee to create a retirement letter in order to create an exit management record.
+
+                </p>
+                <p><br/>Thank you!</p>
+            </field>
+        </record>
+
+        <record id="email_template_exit_sending_survey" model="mail.template">
+            <field name="name">Exit Management: Send Exit Interview Email</field>
+            <field name="model_id" ref="hr_resignation.model_exit_management"/>
+            <field name="subject">Exit Interview - Send by Email</field>
+            <field name="email_from">"${object.company_id.name | safe}" &lt;${(object.company_id.email or user.email) | safe}&gt;</field>
+            <field name="partner_to">${object.employee_id.user_id.partner_id.id | safe}</field>
+            <field name="lang">${object.employee_id.user_id.partner_id.lang}</field>
+            <field name="body_html" type="html">
+                <p>Dear ${object.employee_id.name},</p><br/><br/>
+                        <p>Please fill out the following form related to your exit interview.</p><br/>
+                        <div style="margin: 16px 0px 16px 0px;">
+                            <a href="${object.link}"
+                                style="background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;">
+                                Start Exit Interview
+                            </a>
+                        </div>
+                <p>Please post your response as soon as possible.</p><br/><br/>
+                <p>Thanks!</p><br/>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -8,7 +8,7 @@
                 <form>
                    <p>Please write you remarks below. Thank you!</p>
                    <group>
-                       <field name="remarks" required="1"/>
+                       <field name="remarks"/>
                        <field name="resignation_id" invisible="1"/>
                    </group>
                     <footer>
@@ -39,7 +39,7 @@
                 <form>
                    <p>Please write you remarks below. Thank you!</p>
                    <group>
-                       <field name="remarks" required="1"/>
+                       <field name="remarks"/>
                        <field name="resignation_id" invisible="1"/>
                    </group>
                     <footer>
@@ -70,7 +70,7 @@
                 <form>
                    <p>Please write you remarks below. Thank you!</p>
                    <group>
-                       <field name="remarks" required="1"/>
+                       <field name="remarks"/>
                        <field name="resignation_id" invisible="1"/>
                    </group>
                     <footer>
@@ -101,7 +101,7 @@
                 <form>
                    <p>Please write you remarks below. Thank you!</p>
                    <group>
-                       <field name="remarks" required="1"/>
+                       <field name="remarks"/>
                        <field name="resignation_id" invisible="1"/>
                    </group>
                     <footer>

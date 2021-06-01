@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <record id="exit_management_type_1" model="exit.management.type">
+            <field name="name">Resignation</field>
+            <field name="sequence">1</field>
+            <field name="can_employee_request" eval="True"/>
+            <field name="check_reason" eval="True"/>
+            <field name="exit_clearance" eval="True"/>
+            <field name="exit_interview" eval="True"/>
+        </record>
+
+        <record id="exit_management_type_2" model="exit.management.type">
+            <field name="name">Retirement</field>
+            <field name="sequence">2</field>
+            <field name="can_employee_request" eval="False"/>
+            <field name="check_reason" eval="True"/>
+            <field name="exit_clearance" eval="True"/>
+            <field name="exit_interview" eval="True"/>
+        </record>
+
+        <record id="exit_management_type_3" model="exit.management.type">
+            <field name="name">Layoff/Retrenchment</field>
+            <field name="sequence">3</field>
+            <field name="can_employee_request" eval="False"/>
+            <field name="check_reason" eval="True"/>
+            <field name="exit_clearance" eval="True"/>
+            <field name="exit_interview" eval="False"/>
+        </record>
+
+        <record id="exit_management_type_4" model="exit.management.type">
+            <field name="name">Termination</field>
+            <field name="sequence">4</field>
+            <field name="can_employee_request" eval="False"/>
+            <field name="check_reason" eval="True"/>
+            <field name="exit_clearance" eval="False"/>
+            <field name="exit_interview" eval="False"/>
+        </record>
+    </data>
+</odoo>

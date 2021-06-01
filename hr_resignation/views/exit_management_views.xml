@@ -1,0 +1,315 @@
+<odoo>
+    <data>
+        <record id="exit_clearance_form_view" model="ir.ui.view">
+            <field name="name">exit.clearance.form</field>
+            <field name="model">exit.clearance</field>
+            <field name="arch" type="xml">
+                <form string="Exit Clearance" edit="false">
+                    <header>
+                        <button name="action_remind_approval" icon="fa-envelope" string="Reminder"
+                                class="oe_highlight" type="object" states="draft"/>
+
+                        <button name="%(hr_clearance_approve_action_view)d" icon="fa-check-square"
+                                class="oe_highlight" string="Approve" states="draft,hold"
+                                type="action" groups="hr_resignation.group_exit_clearance_approval"/>
+
+                        <button name="%(hr_clearance_refuse_action_view)d" icon="fa-lock"
+                                class="oe_highlight" string="Hold" states="draft"
+                                type="action" groups="hr_resignation.group_exit_clearance_approval"/>
+
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" string="Name"/>
+                            <h2><field name="name" readonly="1" attrs="{'readonly':[('state', 'not in',[False, 'draft'])]}"/></h2>
+                            <field name="description" readonly="1"/>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="clearance_type_id" readonly="1"/>
+                                <field name="signatory_id" readonly="1"/>
+                                <field name="user_id" invisible="1"/>
+                                <field name="resignation_id" readonly="1"/>
+                                <field name="employee_id" readonly="1"/>
+                                <field name="sequence" invisible="1"/>
+                                <field name="transaction_date" readonly="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="remarks" widget="html"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="exit_clearance_tree_view" model="ir.ui.view">
+            <field name="name">exit.clearance.tree</field>
+            <field name="model">exit.clearance</field>
+            <field name="arch" type="xml">
+                <tree string="Exit Clearance" create="false" edit="false" decoration-success="state=='approve'"
+                      decoration-danger="state=='hold'">
+                    <field name="sequence" widget="handle"/>
+                    <field name="resignation_id" invisible="1"/>
+                    <field name="name"/>
+                    <field name="clearance_type_id"/>
+                    <field name="description" invisible="1"/>
+                    <field name="employee_id"/>
+                    <field name="signatory_id" invisible="1"/>
+                    <field name="transaction_date"/>
+                    <field name="remarks"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="to_approve_exit_clearance_tree_view" model="ir.ui.view">
+            <field name="name">exit.clearance.tree</field>
+            <field name="model">exit.clearance</field>
+            <field name="arch" type="xml">
+                <tree string="Exit Clearance" create="false" edit="false" decoration-success="state=='approve'"
+                      decoration-danger="state=='hold'">
+                    <field name="sequence" widget="handle"/>
+                    <field name="resignation_id" invisible="1"/>
+                    <field name="name" />
+                    <field name="clearance_type_id"/>
+                    <field name="description" invisible="1"/>
+                    <field name="employee_id" />
+                    <field name="signatory_id" invisible="1"/>
+                    <field name="transaction_date"/>
+                    <field name="remarks" invisible="1"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="exit_clearance_filter_view" model="ir.ui.view">
+           <field name="name">exit.clearance.filter</field>
+           <field name="model">exit.clearance</field>
+            <field name="arch" type="xml">
+                <search string="Exit Clearance">
+                    <field name="signatory_id"/>
+                    <field name="resignation_id"/>
+                    <field name="employee_id"/>
+                    <field name="clearance_type_id"/>
+                    <field name="name"/>
+                    <field name="state"/>
+                    <filter string="Assigned to Me" name="assigned" domain="[('signatory_id.user_id', '=', uid)]"/>
+                </search>
+           </field>
+        </record>
+
+        <record id="to_approve_exit_clearance_action_view" model="ir.actions.act_window">
+            <field name="name">To Approve Clearance</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">exit.clearance</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state', '=', 'draft')]</field>
+            <field name="context">{'search_default_assigned': 1}</field>
+            <field name="view_id" ref="to_approve_exit_clearance_tree_view"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+        <record id="action_exit_clearance_view" model="ir.actions.act_window">
+            <field name="name">Exit Clearance</field>
+            <field name="res_model">exit.clearance</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="exit_clearance_tree_view"/>
+            <field name="context">{
+                'search_default_resignation_id': [active_id],
+                'default_resignation_id': active_id,
+            }</field>
+        </record>
+
+
+
+        <record id="exit_management_form_view" model="ir.ui.view">
+            <field name="name">exit.management.form</field>
+            <field name="model">exit.management</field>
+            <field name="arch" type="xml">
+                <form string="Exit Management">
+                    <header>
+                        <button name="action_confirm" string="Confirm" icon="fa-step-forward" type="object" class="oe_highlight" states="draft"
+                                groups="hr_resignation.group_exit_clearance_hr_personnel"/>
+
+                        <button name="action_hold" type="object" icon="fa-lock" class="oe_highlight" string="Hold" states="ongoing"
+                                groups="hr_resignation.group_exit_clearance_hr_personnel"/>
+
+                        <button name="action_done" type="object" icon="fa-check-square" class="oe_highlight" string="Done" states="hold,ongoing"
+                                groups="hr_resignation.group_exit_clearance_hr_personnel"/>
+
+                        <button name="action_send_email_survey" type="object" icon="fa-envelope" class="oe_highlight"
+                                string="Exit Interview - Send by Email" attrs="{'invisible':['|', ('exit_interview','=',False), ('state', '!=', 'ongoing')]}"
+                                groups="hr_resignation.group_exit_clearance_hr_personnel"/>
+
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_start_survey"
+                                class="oe_stat_button"
+                                icon="fa-user"
+                                type="object"
+                                help="Answer related exit interview question"
+                                context="{'survey_id': survey_id}"
+                                attrs="{'invisible':[('survey_sent','=',False)]}">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">Start Exit</span>
+                                    <span class="o_stat_text">Interview</span>
+                                </div>
+                            </button>
+                            <button name="action_print_survey"
+                                class="oe_stat_button"
+                                icon="fa-print"
+                                type="object"
+                                help="Print interview report"
+                                attrs="{'invisible':[('survey_completed','=',False)]}">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">Print Exit</span>
+                                    <span class="o_stat_text">Interview</span>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <label for="employee_id" string="Employee Name"/>
+                            <h2><field name="employee_id" options="{'no_create':True}" required="1" attrs="{'readonly':[('state', 'not in',[False, 'draft'])]}"/></h2>
+                        </div>
+
+                        <group>
+                            <group>
+                                <field name="name" attrs="{'readonly':[('state', 'not in',[False, 'draft'])]}"/>
+                                <field name="company_id" options="{'no_create':True}" attrs="{'readonly':[('state', 'not in',[False, 'draft'])]}"/>
+                                <field name="department_id" options="{'no_create':True}" attrs="{'readonly':[('state', 'not in',[False, 'draft'])]}"/>
+                                <field name="job_id" options="{'no_create':True}" attrs="{'readonly':[('state', 'not in',[False, 'draft'])]}"/>
+                                <field name="resignation_id" invisible="1"/>
+                                <field name="contract_id" invisible="1" options="{'no_create':True}" attrs="{'readonly':[('state', 'not in',[False, 'draft'])]}"/>
+                                <field name="date_filed" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="resignation_type_id" options="{'no_create':True}"
+                                       required="1" attrs="{'readonly':[('state', 'not in',[False, 'draft'])]}"/>
+                                <field name="check_reason" invisible="1"/>
+                                <field name="exit_clearance" invisible="1"/>
+                                <field name="exit_interview" invisible="1"/>
+                                <field name="probability_reason_id" required="1" options="{'no_create':True}"
+                                       attrs="{'readonly':[('state', 'not in',[False, 'draft'])]}"/>
+                                <field name="date_joined" attrs="{'readonly':[('state', 'not in',[False, 'draft'])]}"/>
+                                <field name="effective_date" attrs="{'readonly':[('state', 'not in',[False, 'draft'])]}"/>
+                                <field name="notice_period" attrs="{'invisible':[('exit_clearance', '=', False)], 'readonly':[('state', 'not in',[False, 'draft'])]}"
+                                       groups="hr_resignation.group_exit_clearance_hr_personnel"/>
+                                <field name="survey_id" options="{'no_create':True}" attrs="{'invisible':[('exit_interview', '=',False)]}"/>
+                                <field name="response_id" invisible="1"/>
+                                <field name="survey_sent" invisible="1"/>
+                                <field name="survey_completed" invisible="1"/>
+                                <field name="link" invisible="1"/>
+                                <field name="complete_procedure" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Exit Clearance" name="exit_clearances" attrs="{'invisible':[('exit_clearance', '=', False)]}">
+                                <field name="clearance_ids" nolabel="1">
+                                    <tree string="Exit Clearance" create="false" delete="false" editable="top" decoration-success="state=='approve'"
+                                          decoration-danger="state=='hold'">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="resignation_id" invisible="1"/>
+                                        <field name="name" readonly="1"/>
+                                        <field name="clearance_type_id" required="1" options="{'no_create':True}" readonly="1"/>
+                                        <field name="description" invisible="1"/>
+                                        <field name="employee_id" invisible="1"/>
+                                        <field name="signatory_id" options="{'no_create':True}" attrs="{'readonly':[('state', '=', 'approve')]}"/>
+                                        <field name="transaction_date" readonly="1"/>
+                                        <field name="remarks" readonly="1"/>
+                                        <field name="state" readonly="1"/>
+                                        <button name="%(hr_clearance_approve_action_view)d" icon="fa-check-square"
+                                                class="oe_stat_button" string="Approve" states="draft,hold"
+                                                type="action" groups="hr_resignation.group_exit_clearance_approval"/>
+
+                                        <button name="%(hr_clearance_refuse_action_view)d" icon="fa-lock"
+                                                class="oe_stat_button" string="Hold" states="draft"
+                                                type="action" groups="hr_resignation.group_exit_clearance_approval"/>
+
+                                        <button name="action_remind_approval" icon="fa-envelope" states="draft"
+                                                string="Reminder" class="oe_stat_button" type="object"
+                                                groups="hr_resignation.group_exit_clearance_hr_personnel"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Reason" attrs="{'invisible':[('check_reason', '=', False)]}">
+                                <field name="reason" colspan="4" widget="html" nolabel="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="exit_management_tree_view" model="ir.ui.view">
+            <field name="name">exit.management.tree</field>
+            <field name="model">exit.management</field>
+            <field name="arch" type="xml">
+                <tree string="Exit Management" decoration-success="state=='done'"
+                      decoration-info="state=='ongoing'"
+                      decoration-danger="state=='refuse'">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="company_id"/>
+                    <field name="department_id"/>
+                    <field name="job_id"/>
+                    <field name="resignation_type_id"/>
+                    <field name="probability_reason_id"/>
+                    <field name="effective_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="exit_management_filter_view" model="ir.ui.view">
+           <field name="name">exit.management.filter</field>
+           <field name="model">exit.management</field>
+            <field name="arch" type="xml">
+                <search string="Resignation">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="company_id"/>
+                    <field name="department_id"/>
+                    <field name="job_id"/>
+                    <field name="resignation_type_id"/>
+                    <field name="probability_reason_id"/>
+                    <field name="effective_date"/>
+                    <field name="state"/>
+                </search>
+           </field>
+        </record>
+
+        <record id="exit_management_action_view" model="ir.actions.act_window">
+            <field name="name">Exit Management</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">exit.management</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+    </data>
+</odoo>

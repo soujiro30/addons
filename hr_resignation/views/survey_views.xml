@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+
+        <record id="survey_survey_form_inherited_view" model="ir.ui.view">
+            <field name="name">survey.survey.form.inherit</field>
+            <field name="model">survey.survey</field>
+            <field name="inherit_id" ref="survey.survey_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='category']" position="after">
+                    <field name="company_id" options="{'no_create':True}"
+                           attrs="{'readonly':[('state', 'not in',[False, 'draft'])]}"/>
+
+                </xpath>
+            </field>
+        </record>
+        <record id="action_survey_form_view" model="ir.actions.act_window">
+            <field name="name">Exit Interview Form</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">survey.survey</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('category', '=', 'exit_management')]</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+    </data>
+</odoo>

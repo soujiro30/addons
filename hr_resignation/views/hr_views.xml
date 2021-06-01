@@ -25,7 +25,7 @@
                 <xpath expr="//field[@name='parent_id']" position="after">
                     <label for="date_joined" string="Date Joined &amp; Separated"/>
                     <div>
-                        <field name="date_joined" class="oe_inline" required="1"/> -
+                        <field name="date_joined" class="oe_inline" required="0"/> -
                         <field name="date_separated" class="oe_inline"/>
                     </div>
                 </xpath>
@@ -40,7 +40,7 @@
                 <xpath expr="//field[@name='parent_id']" position="after">
                     <label for="date_joined" string="Date Joined &amp; Separated"/>
                     <div>
-                        <field name="date_joined" class="oe_inline" required="1"/> -
+                        <field name="date_joined" class="oe_inline" required="0"/> -
                         <field name="date_separated" class="oe_inline"/>
                     </div>
                 </xpath>

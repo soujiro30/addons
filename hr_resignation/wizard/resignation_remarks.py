@@ -10,7 +10,6 @@ class HRResignationRemarksApprove(models.TransientModel):
 
     def action_approve(self):
         resignation_id = self.env['hr.resignation'].sudo().browse(self.resignation_id.id)
-        resignation_id.write({'remarks': self.remarks})
         resignation_id.action_approve()
 
 
@@ -23,7 +22,6 @@ class HRResignationRemarksRefuse(models.TransientModel):
 
     def action_refuse(self):
         resignation_id = self.env['hr.resignation'].sudo().browse(self.resignation_id.id)
-        resignation_id.write({'remarks': self.remarks})
         resignation_id.action_refuse()
 
 
@@ -31,23 +29,23 @@ class HRClearanceRemarksApprove(models.TransientModel):
     _name = 'hr.clearance.approve'
     _description = 'Clearance Approve'
 
-    resignation_id = fields.Many2one(comodel_name="hr.resignation.clearance", string="Resignation", required=False, )
+    resignation_id = fields.Many2one(comodel_name="exit.clearance", string="Resignation", required=False, )
     remarks = fields.Text(string="Remarks", required=True, )
 
     def action_approve(self):
-        resignation_id = self.resignation_id
-        resignation_id.write({'remarks': self.remarks})
-        resignation_id.action_approve()
+        clearance = self.env['exit.clearance'].sudo().browse(self.resignation_id.id)
+        clearance.write({'remarks': self.remarks})
+        clearance.action_approve()
 
 
 class HRClearanceRemarksRefuse(models.TransientModel):
     _name = 'hr.clearance.refuse'
     _description = 'Clearance Refuse'
 
-    resignation_id = fields.Many2one(comodel_name="hr.resignation.clearance", string="Resignation", required=False, )
+    resignation_id = fields.Many2one(comodel_name="exit.clearance", string="Resignation", required=False, )
     remarks = fields.Text(string="Remarks", required=True, )
 
     def action_refuse(self):
-        resignation_id = self.resignation_id
-        resignation_id.write({'remarks': self.remarks})
-        resignation_id.action_refuse()
+        clearance = self.env['exit.clearance'].sudo().browse(self.resignation_id.id)
+        clearance.write({'remarks': self.remarks})
+        clearance.action_hold()
