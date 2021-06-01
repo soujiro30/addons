@@ -58,6 +58,40 @@
             </field>
         </record>
 
+        <record id="hr_resignation_kanban_view" model="ir.ui.view">
+            <field name="name">hr.resignation.kanban</field>
+            <field name="model">hr.resignation</field>
+            <field name="arch" type="xml">
+                <kanban disable_drag_drop_record="true" disable_sort_record="true">
+                    <field name="employee_id"/>
+                    <field name="department_id"/>
+                    <field name="company_id"/>
+                    <field name="name"/>
+                    <field name="state" readonly="1"/>
+                    <templates>
+
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="oe_kanban_content">
+                                    <strong>
+                                        <field name="employee_id"/> / <field name="name"/>
+                                    </strong>
+                                    <div class="text-muted o_kanban_record_subtitle">
+                                        Company: <field name="company_id"/><br/>
+                                        Date Effectivity: <field name="effective_date"/><br/>
+                                        Type: <field name="resignation_type_id"/><br/>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                    <img t-att-src="kanban_image('hr.employee', 'image_128', record.employee_id.raw_value)" t-att-title="record.employee_id.value" t-att-alt="record.employee_id.value" width="24" height="24" class="oe_kanban_avatar float-right"/>
+                                </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
         <record id="hr_resignation_tree_view" model="ir.ui.view">
             <field name="name">hr.resignation.tree</field>
             <field name="model">hr.resignation</field>
@@ -114,6 +148,11 @@
                     <field name="effective_date"/>
                     <field name="state"/>
                     <filter string="Assigned to Me" name="assigned" domain="[('manager_id.user_id', '=', uid)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Employee" name="employee" domain="[]" context="{'group_by': 'employee_id'}"/>
+                        <filter string="Job Position" name="job" domain="[]" context="{'group_by': 'job_id'}"/>
+                        <filter string="Status" name='group_by_state' domain="[]" context="{'group_by': 'state'}"/>
+                    </group>
                 </search>
            </field>
         </record>
@@ -137,8 +176,9 @@
             <field name="name">All Resignation</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">hr.resignation</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">kanban,tree,form</field>
             <field name="view_id" ref="to_approve_hr_resignation_tree_view"/>
+            <field name="context">{'search_default_group_by_state': 1}</field>
             <field name="help" type="html">
               <p class="oe_view_nocontent_create">
                 <!-- Add Text Here -->

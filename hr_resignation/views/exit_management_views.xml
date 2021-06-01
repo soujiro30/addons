@@ -260,6 +260,39 @@
             </field>
         </record>
 
+        <record id="exit_management_kanban_view" model="ir.ui.view">
+            <field name="name">exit.management.kanban</field>
+            <field name="model">exit.management</field>
+            <field name="arch" type="xml">
+                <kanban disable_drag_drop_record="true" disable_sort_record="true" default_group_by="state">
+                    <field name="employee_id"/>
+                    <field name="department_id"/>
+                    <field name="company_id"/>
+                    <field name="name"/>
+                    <field name="state" readonly="1"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="oe_kanban_content">
+                                    <strong>
+                                        <field name="employee_id"/> / <field name="name"/>
+                                    </strong>
+                                    <div class="text-muted o_kanban_record_subtitle">
+                                        Company: <field name="company_id"/><br/>
+                                        Date Effectivity: <field name="effective_date"/><br/>
+                                        Type: <field name="resignation_type_id"/><br/>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                    <img t-att-src="kanban_image('hr.employee', 'image_128', record.employee_id.raw_value)" t-att-title="record.employee_id.value" t-att-alt="record.employee_id.value" width="24" height="24" class="oe_kanban_avatar float-right"/>
+                                </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
         <record id="exit_management_tree_view" model="ir.ui.view">
             <field name="name">exit.management.tree</field>
             <field name="model">exit.management</field>
@@ -294,6 +327,12 @@
                     <field name="probability_reason_id"/>
                     <field name="effective_date"/>
                     <field name="state"/>
+                    <filter string="This Month" name="this_month"  domain="[('effective_date','&lt;',(context_today()+relativedelta(months=1)).strftime('%%Y-%%m-01')), ('effective_date','&gt;=',time.strftime('%%Y-%%m-01'))]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Employee" name="employee" domain="[]" context="{'group_by': 'employee_id'}"/>
+                        <filter string="Job Position" name="job" domain="[]" context="{'group_by': 'job_id'}"/>
+                        <filter string="Status" name='group_by_state' domain="[]" context="{'group_by': 'state'}"/>
+                    </group>
                 </search>
            </field>
         </record>
@@ -302,7 +341,7 @@
             <field name="name">Exit Management</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">exit.management</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">kanban,tree,form</field>
             <field name="help" type="html">
               <p class="oe_view_nocontent_create">
                 <!-- Add Text Here -->
