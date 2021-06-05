@@ -1,0 +1,71 @@
+<odoo>
+    <data>
+        <record id="validate_turnover_checklist_employee_form_view" model="ir.ui.view">
+            <field name="name">validate.turnover.checklist.employee.form</field>
+            <field name="model">validate.turnover.checklist.employee</field>
+            <field name="arch" type="xml">
+                <form string="Validate Turnover Checklist">
+                    <sheet>
+                        <group string="Checklist">
+                            <field name="exit_id" invisible="1"/>
+                            <field name="line_ids" nolabel="1" colspan="2">
+                                <tree string="List" create="false" delete="false" editable="top">
+                                    <field name="submitted" widget="boolean_toggle"/>
+                                    <field name="turnover_id"/>
+                                    <field name="date_submitted"/>
+                                    <field name="notes"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Validate Turnover Checklist" type="object"
+                                name="action_validate_turnover" class="oe_highlight"/>
+                        <button string="Cancel" class='oe_link' special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+         <record id="validate_turnover_checklist_employee_action_wizard" model="ir.actions.act_window">
+            <field name="name">Validate Turnover Checklist</field>
+            <field name="res_model">validate.turnover.checklist.employee</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="validate_turnover_checklist_employer_form_view" model="ir.ui.view">
+            <field name="name">validate.turnover.checklist.employer.form</field>
+            <field name="model">validate.turnover.checklist.employer</field>
+            <field name="arch" type="xml">
+                <form string="Validate Turnover Checklist">
+                    <sheet>
+                        <group string="Checklist">
+                            <field name="exit_id" invisible="1"/>
+                            <field name="line_ids" nolabel="1" colspan="2">
+                                <tree string="List" create="false" delete="false" editable="top">
+                                    <field name="submitted" widget="boolean_toggle"/>
+                                    <field name="turnover_id"/>
+                                    <field name="date_submitted"/>
+                                    <field name="notes"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Validate Turnover Checklist" type="object"
+                                name="action_validate_turnover" class="oe_highlight"/>
+                        <button string="Cancel" class='oe_link' special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+         <record id="validate_turnover_checklist_employer_action_wizard" model="ir.actions.act_window">
+            <field name="name">Validate Turnover Checklist</field>
+            <field name="res_model">validate.turnover.checklist.employer</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

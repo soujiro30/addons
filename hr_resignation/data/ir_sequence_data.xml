@@ -3,16 +3,16 @@
         <record id="seq_hr_resignation" model="ir.sequence">
             <field name="name">Resignation</field>
             <field name="code">hr.resignation</field>
-            <field name="prefix">RES</field>
-            <field name="padding">5</field>
+            <field name="prefix">RES/%(year)s/</field>
+            <field name="padding">4</field>
             <field name="company_id" eval="False"/>
         </record>
 
         <record id="seq_exit_management" model="ir.sequence">
             <field name="name">Exit Management</field>
             <field name="code">exit.management</field>
-            <field name="prefix">EM</field>
-            <field name="padding">5</field>
+            <field name="prefix">EM/%(year)s/</field>
+            <field name="padding">4</field>
             <field name="company_id" eval="False"/>
         </record>
 

@@ -1,30 +1,5 @@
 <odoo>
     <data>
-        <record id="exit_clearance_type_tree_view" model="ir.ui.view">
-            <field name="name">exit.clearance.type.tree</field>
-            <field name="model">exit.clearance.type</field>
-            <field name="arch" type="xml">
-                <tree string="Clearance Type" editable="top">
-                    <field name="sequence" widget="handle"/>
-                    <field name="name"/>
-                </tree>
-            </field>
-        </record>
-
-        <record id="exit_clearance_type_action_view" model="ir.actions.act_window">
-            <field name="name">Exit Clearance Type</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">exit.clearance.type</field>
-            <field name="view_mode">tree</field>
-            <field name="help" type="html">
-              <p class="oe_view_nocontent_create">
-                <!-- Add Text Here -->
-              </p><p>
-                <!-- More details about what a user can do with this object will be OK -->
-              </p>
-            </field>
-        </record>
-
         <record id="exit_clearance_template_form_view" model="ir.ui.view">
             <field name="name">exit.clearance.template.form</field>
             <field name="model">exit.clearance.template</field>
@@ -43,15 +18,21 @@
                             </group>
                         </group>
                         <notebook>
-                            <page name="template_clearance" string="Exit Clearance Template">
+                            <page name="template_clearance" string="Stages">
                                 <field name="template_ids" nolabel="1">
-                                    <tree editable="top">
+                                    <tree editable="bottom">
                                         <field name="sequence" widget="handle"/>
                                         <field name="clearance_template_id" invisible="1"/>
-                                        <field name="clearance_type_id" required="1" options="{'no_create':True}"/>
-                                        <field name="name" required="1"/>
-                                        <field name="description" invisible="1"/>
-                                        <field name="signatory_id"/>
+                                        <field name="department_id" options="{'no_create':True}" required="1"/>
+                                        <field name="name"/>
+                                        <field name="signatory_id" options="{'no_create':True}" required="1"/>
+                                        <field name="with_predecessor"/>
+                                        <field name="predecessor_stage_id" options="{'no_create':True}"
+                                               attrs="{'invisible': [('with_predecessor', '=', False)],
+                                                    'required': [('with_predecessor', '=', True)]}"/>
+                                        <field name="with_successor"/>
+                                        <field name="successor_stage_id" options="{'no_create':True}" attrs="{'invisible': [('with_successor', '=', False)],
+                                                    'required': [('with_successor', '=', True)]}"/>
                                     </tree>
                                 </field>
                             </page>
@@ -98,6 +79,43 @@
               </p><p>
                 <!-- More details about what a user can do with this object will be OK -->
               </p>
+            </field>
+        </record>
+
+        <record id="exit_clearance_template_line_form_view" model="ir.ui.view">
+            <field name="name">exit.clearance.template.line.form</field>
+            <field name="model">exit.clearance.template.line</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" string="Name" class="oe_edit_only"/>
+                            <h2><field name="name" placeholder="Clearance Type here!"/> </h2>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="sequence"/>
+                                <field name="clearance_template_id" invisible="1"/>
+                                <label for="with_predecessor"/>
+                                <div>
+                                    <field name="with_predecessor" class="oe_inline"/>
+                                    <field name="predecessor_stage_id" class="oe_inline" options="{'no_create':True}"
+                                           attrs="{'invisible': [('with_predecessor', '=', False)],
+                                                    'required': [('with_predecessor', '=', True)]}"/>
+                                </div>
+                                <label for="with_successor"/>
+                                <div>
+                                    <field name="with_successor" class="oe_inline"/>
+                                    <field name="successor_stage_id" class="oe_inline" options="{'no_create':True}"
+                                           attrs="{'invisible': [('with_successor', '=', False)],
+                                                    'required': [('with_successor', '=', True)]}"/>
+                                </div>
+                                <field name="department_id" options="{'no_create':True}" required="1"/>
+                                <field name="signatory_id" options="{'no_create':True}" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
             </field>
         </record>
     </data>

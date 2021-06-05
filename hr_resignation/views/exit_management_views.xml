@@ -23,11 +23,10 @@
                         <div class="oe_title">
                             <label for="name" string="Name"/>
                             <h2><field name="name" readonly="1" attrs="{'readonly':[('state', 'not in',[False, 'draft'])]}"/></h2>
-                            <field name="description" readonly="1"/>
                         </div>
                         <group>
                             <group>
-                                <field name="clearance_type_id" readonly="1"/>
+                                <field name="department_id" readonly="1"/>
                                 <field name="signatory_id" readonly="1"/>
                                 <field name="user_id" invisible="1"/>
                                 <field name="resignation_id" readonly="1"/>
@@ -58,8 +57,7 @@
                     <field name="sequence" widget="handle"/>
                     <field name="resignation_id" invisible="1"/>
                     <field name="name"/>
-                    <field name="clearance_type_id"/>
-                    <field name="description" invisible="1"/>
+                    <field name="department_id"/>
                     <field name="employee_id"/>
                     <field name="signatory_id" invisible="1"/>
                     <field name="transaction_date"/>
@@ -78,8 +76,7 @@
                     <field name="sequence" widget="handle"/>
                     <field name="resignation_id" invisible="1"/>
                     <field name="name" />
-                    <field name="clearance_type_id"/>
-                    <field name="description" invisible="1"/>
+                    <field name="department_id"/>
                     <field name="employee_id" />
                     <field name="signatory_id" invisible="1"/>
                     <field name="transaction_date"/>
@@ -97,7 +94,7 @@
                     <field name="signatory_id"/>
                     <field name="resignation_id"/>
                     <field name="employee_id"/>
-                    <field name="clearance_type_id"/>
+                    <field name="department_id"/>
                     <field name="name"/>
                     <field name="state"/>
                     <filter string="Assigned to Me" name="assigned" domain="[('signatory_id.user_id', '=', uid)]"/>
@@ -150,38 +147,38 @@
                         <button name="action_done" type="object" icon="fa-check-square" class="oe_highlight" string="Done" states="hold,ongoing"
                                 groups="hr_resignation.group_exit_clearance_hr_personnel"/>
 
-                        <button name="action_send_email_survey" type="object" icon="fa-envelope" class="oe_highlight"
-                                string="Exit Interview - Send by Email" attrs="{'invisible':['|', ('exit_interview','=',False), ('state', '!=', 'ongoing')]}"
-                                groups="hr_resignation.group_exit_clearance_hr_personnel"/>
+<!--                        <button name="action_send_email_survey" type="object" icon="fa-envelope" class="oe_highlight"-->
+<!--                                string="Exit Interview - Send by Email" attrs="{'invisible':['|', ('exit_interview','=',False), ('state', '!=', 'ongoing')]}"-->
+<!--                                groups="hr_resignation.group_exit_clearance_hr_personnel"/>-->
 
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
-                        <div class="oe_button_box" name="button_box">
-                            <button name="action_start_survey"
-                                class="oe_stat_button"
-                                icon="fa-user"
-                                type="object"
-                                help="Answer related exit interview question"
-                                context="{'survey_id': survey_id}"
-                                attrs="{'invisible':[('survey_sent','=',False)]}">
-                                <div class="o_field_widget o_stat_info">
-                                    <span class="o_stat_text">Start Exit</span>
-                                    <span class="o_stat_text">Interview</span>
-                                </div>
-                            </button>
-                            <button name="action_print_survey"
-                                class="oe_stat_button"
-                                icon="fa-print"
-                                type="object"
-                                help="Print interview report"
-                                attrs="{'invisible':[('survey_completed','=',False)]}">
-                                <div class="o_field_widget o_stat_info">
-                                    <span class="o_stat_text">Print Exit</span>
-                                    <span class="o_stat_text">Interview</span>
-                                </div>
-                            </button>
-                        </div>
+<!--                        <div class="oe_button_box" name="button_box">-->
+<!--                            <button name="action_start_survey"-->
+<!--                                class="oe_stat_button"-->
+<!--                                icon="fa-user"-->
+<!--                                type="object"-->
+<!--                                help="Answer related exit interview question"-->
+<!--                                context="{'survey_id': survey_id}"-->
+<!--                                attrs="{'invisible':[('survey_sent','=',False)]}">-->
+<!--                                <div class="o_field_widget o_stat_info">-->
+<!--                                    <span class="o_stat_text">Start Exit</span>-->
+<!--                                    <span class="o_stat_text">Interview</span>-->
+<!--                                </div>-->
+<!--                            </button>-->
+<!--                            <button name="action_print_survey"-->
+<!--                                class="oe_stat_button"-->
+<!--                                icon="fa-print"-->
+<!--                                type="object"-->
+<!--                                help="Print interview report"-->
+<!--                                attrs="{'invisible':[('survey_completed','=',False)]}">-->
+<!--                                <div class="o_field_widget o_stat_info">-->
+<!--                                    <span class="o_stat_text">Print Exit</span>-->
+<!--                                    <span class="o_stat_text">Interview</span>-->
+<!--                                </div>-->
+<!--                            </button>-->
+<!--                        </div>-->
                         <div class="oe_title">
                             <label for="employee_id" string="Employee Name"/>
                             <h2><field name="employee_id" options="{'no_create':True}" required="1" attrs="{'readonly':[('state', 'not in',[False, 'draft'])]}"/></h2>
@@ -189,12 +186,12 @@
 
                         <group>
                             <group>
-                                <field name="name" attrs="{'readonly':[('state', 'not in',[False, 'draft'])]}"/>
-                                <field name="company_id" options="{'no_create':True}" attrs="{'readonly':[('state', 'not in',[False, 'draft'])]}"/>
-                                <field name="department_id" options="{'no_create':True}" attrs="{'readonly':[('state', 'not in',[False, 'draft'])]}"/>
-                                <field name="job_id" options="{'no_create':True}" attrs="{'readonly':[('state', 'not in',[False, 'draft'])]}"/>
+                                <field name="name" readonly="1"/>
+                                <field name="company_id" options="{'no_create':True}" readonly="1"/>
+                                <field name="department_id" options="{'no_create':True}" readonly="1"/>
+                                <field name="job_id" options="{'no_create':True}" readonly="1"/>
                                 <field name="resignation_id" invisible="1"/>
-                                <field name="contract_id" invisible="1" options="{'no_create':True}" attrs="{'readonly':[('state', 'not in',[False, 'draft'])]}"/>
+                                <field name="contract_id" invisible="1"/>
                                 <field name="date_filed" readonly="1"/>
                             </group>
                             <group>
@@ -205,15 +202,15 @@
                                 <field name="exit_interview" invisible="1"/>
                                 <field name="probability_reason_id" required="1" options="{'no_create':True}"
                                        attrs="{'readonly':[('state', 'not in',[False, 'draft'])]}"/>
-                                <field name="date_joined" attrs="{'readonly':[('state', 'not in',[False, 'draft'])]}"/>
+                                <field name="date_joined" readonly="1"/>
                                 <field name="effective_date" attrs="{'readonly':[('state', 'not in',[False, 'draft'])]}"/>
-                                <field name="notice_period" attrs="{'invisible':[('exit_clearance', '=', False)], 'readonly':[('state', 'not in',[False, 'draft'])]}"
-                                       groups="hr_resignation.group_exit_clearance_hr_personnel"/>
-                                <field name="survey_id" options="{'no_create':True}" attrs="{'invisible':[('exit_interview', '=',False)]}"/>
-                                <field name="response_id" invisible="1"/>
-                                <field name="survey_sent" invisible="1"/>
-                                <field name="survey_completed" invisible="1"/>
-                                <field name="link" invisible="1"/>
+<!--                                <field name="notice_period" attrs="{'invisible':[('exit_clearance', '=', False)], 'readonly':[('state', 'not in',[False, 'draft'])]}"-->
+<!--                                       groups="hr_resignation.group_exit_clearance_hr_personnel"/>-->
+<!--                                <field name="survey_id" options="{'no_create':True}" attrs="{'invisible':[('exit_interview', '=',False)]}"/>-->
+<!--                                <field name="response_id" invisible="1"/>-->
+<!--                                <field name="survey_sent" invisible="1"/>-->
+<!--                                <field name="survey_completed" invisible="1"/>-->
+<!--                                <field name="link" invisible="1"/>-->
                                 <field name="complete_procedure" invisible="1"/>
                             </group>
                         </group>
@@ -225,26 +222,60 @@
                                         <field name="sequence" widget="handle"/>
                                         <field name="resignation_id" invisible="1"/>
                                         <field name="name" readonly="1"/>
-                                        <field name="clearance_type_id" required="1" options="{'no_create':True}" readonly="1"/>
-                                        <field name="description" invisible="1"/>
+                                        <field name="department_id" readonly="1"/>
                                         <field name="employee_id" invisible="1"/>
                                         <field name="signatory_id" options="{'no_create':True}" attrs="{'readonly':[('state', '=', 'approve')]}"/>
                                         <field name="transaction_date" readonly="1"/>
                                         <field name="remarks" readonly="1"/>
                                         <field name="state" readonly="1"/>
-                                        <button name="%(hr_clearance_approve_action_view)d" icon="fa-check-square"
-                                                class="oe_stat_button" string="Approve" states="draft,hold"
-                                                type="action" groups="hr_resignation.group_exit_clearance_approval"/>
-
-                                        <button name="%(hr_clearance_refuse_action_view)d" icon="fa-lock"
-                                                class="oe_stat_button" string="Hold" states="draft"
-                                                type="action" groups="hr_resignation.group_exit_clearance_approval"/>
-
-                                        <button name="action_remind_approval" icon="fa-envelope" states="draft"
-                                                string="Reminder" class="oe_stat_button" type="object"
-                                                groups="hr_resignation.group_exit_clearance_hr_personnel"/>
                                     </tree>
                                 </field>
+                            </page>
+                            <page string="Exit Interview" attrs="{'invisible':[('exit_interview', '=',False)]}">
+                                <field name="tag_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
+                                <group string="Notes">
+                                    <field name="notes" colspan="4" nolabel="1"/>
+                                </group>
+                            </page>
+                            <page string="Turnover Checklist" attrs="{'invisible':[('resignation_type_id', '=',False)]}">
+                                <group>
+                                    <group string="By Employee">
+                                        <field name="employee_list" widget="many2many_checkboxes" nolabel="1" readonly="1"/>
+                                        <button name="%(validate_turnover_checklist_employee_action_wizard)d"
+                                                string="Validate Checklist" type="action" class="oe_highlight">
+                                        </button>
+
+                                    </group>
+                                    <group string="By Employer">
+                                        <field name="employer_list" widget="many2many_checkboxes" nolabel="1"
+                                               readonly="1"/>
+                                        <button name="%(validate_turnover_checklist_employer_action_wizard)d"
+                                                string="Validate Checklist" type="action" class="oe_highlight">
+                                        </button>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="employee_checklist_ids" readonly="1" nolabel="1" colspan="2">
+                                            <tree>
+                                                <field name="exit_id" invisible="1"/>
+                                                <field name="turnover_id" string="Checklist"/>
+                                                <field name="date_submitted"/>
+                                                <field name="notes"/>
+                                            </tree>
+                                        </field>
+                                    </group>
+                                    <group>
+                                        <field name="employer_checklist_ids" readonly="1" nolabel="1" colspan="2">
+                                            <tree>
+                                                <field name="exit_id" invisible="1"/>
+                                                <field name="turnover_id" string="Checklist"/>
+                                                <field name="date_submitted"/>
+                                                <field name="notes"/>
+                                            </tree>
+                                        </field>
+                                    </group>
+                                </group>
                             </page>
                             <page string="Reason" attrs="{'invisible':[('check_reason', '=', False)]}">
                                 <field name="reason" colspan="4" widget="html" nolabel="1"/>
@@ -341,8 +372,7 @@
             <field name="name">Exit Management</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">exit.management</field>
-            <field name="view_mode">kanban,tree,form</field>
-            <field name="context">{'search_default_group_by_state': 1}</field>
+            <field name="view_mode">tree,kanban,form</field>
             <field name="help" type="html">
               <p class="oe_view_nocontent_create">
                 <!-- Add Text Here -->

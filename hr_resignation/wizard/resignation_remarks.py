@@ -22,7 +22,7 @@ class HRResignationRemarksRefuse(models.TransientModel):
 
     def action_refuse(self):
         resignation_id = self.env['hr.resignation'].sudo().browse(self.resignation_id.id)
-        resignation_id.action_refuse()
+        resignation_id.action_cancel()
 
 
 class HRClearanceRemarksApprove(models.TransientModel):

@@ -3,17 +3,15 @@
          <record id="email_template_manager_waiting_approval" model="mail.template">
             <field name="name">Exit Management - Waiting for Approval</field>
             <field name="email_from">"${object.company_id.name|safe}" &lt;${(object.company_id.email or user.email)|safe}&gt;</field>
-            <field name="subject">Exit Management - Waiting for Approval</field>
-            <field name="partner_to">${object.manager_id.user_id.partner_id.id }</field>
+            <field name="subject">${object.subject}</field>
+            <field name="partner_to">${object.manager_id.user_id.partner_id.id}</field>
             <field name="model_id" ref="hr_resignation.model_hr_resignation"/>
             <field name="lang">${object.manager_id.user_id.partner_id.lang}</field>
             <field name="body_html" type="html">
                 <p>Dear ${object.manager_id.user_id.partner_id.name},</p>
                 <p>
-                    <br/>We would like to inform that your subordinate ${object.employee_id.name} is waiting for your approval.
+                    <br/>We would like to inform that your subordinate ${object.employee_id.name} is waiting for your approval upon his/her resignation.
                 </p>
-                <p>Please see the reason below of his/her leaving the company.</p>
-                <p>${object.reason}</p>
                 <p><br/>Thank you!</p><br/><br/>
             </field>
         </record>
@@ -28,7 +26,7 @@
             <field name="body_html" type="html">
                 <p>Dear ${object.signatory_id.user_id.partner_id.name},</p>
                 <p>
-                    <br/>We would like to inform that ${object.employee_id.name} is now waiting for your approval with the clearance description ${object.name}
+                    <br/>We would like to inform that ${object.employee_id.name} is now waiting for your approval upon his/her exit clearance regarding on ${object.name}
                 </p>
                 <p><br/>Thank you!</p>
             </field>
