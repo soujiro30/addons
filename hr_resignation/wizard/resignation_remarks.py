@@ -11,6 +11,7 @@ class HRResignationRemarksApprove(models.TransientModel):
     def action_approve(self):
         resignation_id = self.env['hr.resignation'].sudo().browse(self.resignation_id.id)
         resignation_id.action_approve()
+        resignation_id.write({'remarks': self.remarks})
 
 
 class HRResignationRemarksRefuse(models.TransientModel):
@@ -23,6 +24,7 @@ class HRResignationRemarksRefuse(models.TransientModel):
     def action_refuse(self):
         resignation_id = self.env['hr.resignation'].sudo().browse(self.resignation_id.id)
         resignation_id.action_cancel()
+        resignation_id.write({'remarks': self.remarks})
 
 
 class HRClearanceRemarksApprove(models.TransientModel):

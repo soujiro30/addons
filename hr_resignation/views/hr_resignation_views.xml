@@ -11,7 +11,7 @@
                         <button name="%(hr_resignation_approve_action_view)d" icon="fa-check-square" class="oe_highlight" string="Approve" states="manager_approval"
                                 type="action" groups="hr_resignation.group_resignation_manager"/>
 
-                        <button name="%(hr_resignation_refuse_action_view)d" icon="fa-thumbs-down" class="oe_highlight" string="Refuse" states="manager_approval,ongoing"
+                        <button name="%(hr_resignation_refuse_action_view)d" icon="fa-thumbs-down" class="oe_highlight" string="Cancel" states="manager_approval,ongoing"
                                 type="action" groups="hr_resignation.group_resignation_manager"/>
 
                         <field name="state" widget="statusbar"/>
@@ -42,6 +42,9 @@
                                 <field name="notice_period" invisible="1"/>
                                 <field name="manager_id" required="1" options="{'no_create':True}" attrs="{'readonly':[('state', 'not in',[False, 'draft'])]}"/>
                             </group>
+                        </group>
+                        <group string="Remarks" attrs="{'invisible': [('state', 'not in', ['done', 'cancel'])]}">
+                            <field name="remarks" nolabel="1" colspan="4"/>
                         </group>
                         <notebook>
                             <page string="Email Content">

@@ -212,15 +212,39 @@ class ExitManagement(models.Model):
         res = super(ExitManagement, self).write(values)
         return res
 
-    def action_confirm(self):
-        if self.env.user.has_group('hr_resignation.group_exit_clearance_hr_personnel'):
-            self.state = 'ongoing'
-            if self.exit_clearance:
-                self.get_exit_clearance_template()
-            # if self.exit_interview:
-            #     self.action_create_survey()
-        else:
-            raise ValidationError(_("You are not allowed to this action. Please contact the administrator"))
+    def exit_clearance_template(self, employee, job, department, company):
+        result = []
+        template_id = self.env['exit.clearance.template'].search([('job_id', '=', job), ('department_id', '=', department),
+                                                                  ('company_id', '=', company)], limit=1)
+
+        if template_id and template_id.template_ids:
+            for rec in template_id.template_ids:
+                values = {
+                    'name': rec.name,
+                    'department_id': rec.department_id.id,
+                    'signatory_id': rec.signatory_id.id,
+                    'sequence': rec.sequence,
+                    'state': 'draft',
+                    'clearance_template_line_id': rec.id,
+                    'employee_id': employee,
+                }
+                result.append(values)
+        return result
+
+    @api.onchange('employee_id', 'exit_clearance', 'resignation_type_id')
+    def check_exit_clearance(self):
+        for record in self:
+            if record.employee_id and record.resignation_type_id and record.exit_clearance:
+                clearance_list = list()
+                clearance_ids = record.clearance_ids
+                exit_clearance_template = record.exit_clearance_template(record.employee_id.id, record.job_id.id, record.department_id.id, record.company_id.id)
+                if exit_clearance_template:
+                    for values in exit_clearance_template:
+                        record.clearance_ids = None
+                        clearance_list.append([0, 0, values])
+                    record.update({'clearance_ids': clearance_list})
+                else:
+                    raise ValidationError(_("No exit clearance template available . Please contact the HR Personnel to create a template for clearance."))
 
     @api.onchange('resignation_type_id')
     def onchange_resignation_type_id(self):
@@ -235,7 +259,6 @@ class ExitManagement(models.Model):
     def get_effective_date(self):
         for record in self:
             if record.resignation_type_id and record.date_filed:
-                # date_filed = datetime.strptime(self.date_filed, '%Y-%m-%d')
                 self.effective_date = record.date_filed + relativedelta(days=record.resignation_type_id.notice_period)
 
     @api.onchange('employee_id')
@@ -261,31 +284,19 @@ class ExitManagement(models.Model):
                 if rec.date_joined >= rec.effective_date:
                     raise ValidationError(_('Revealing date must be anterior to joining date'))
 
-    def get_exit_clearance_template(self):
+    def action_confirm(self):
         for record in self:
-            clearance = self.env['exit.clearance']
-            template_id = self.env['exit.clearance.template'].search([('job_id', '=', record.job_id.id),
-                                                                      ('department_id', '=',  record.department_id.id),
-                                                                      ('company_id', '=', record.company_id.id)], limit=1)
-
-            if template_id and template_id.template_ids:
-                for rec in template_id.template_ids:
-                    values = {
-                        'name': rec.name,
-                        'department_id': rec.department_id.id,
-                        'signatory_id': rec.signatory_id.id,
-                        'sequence': rec.sequence,
-                        'state': 'draft',
-                        'clearance_template_line_id': rec.id,
-                        'employee_id': record.employee_id.id,
-                        'resignation_id': record.id
-                    }
-                    res = clearance.create(values)
-                    if not res.clearance_template_line_id.predecessor_stage_id:
-                        email_template_clearance_approval = self.env.ref('hr_resignation.email_template_sending_clearance_signatories')
-                        res.message_post_with_template(email_template_clearance_approval.id)
+            if self.env.user.has_group('hr_resignation.group_exit_clearance_hr_personnel'):
+                record.state = 'ongoing'
+                if record.exit_clearance and record.clearance_ids:
+                    for clearance in record.clearance_ids:
+                        if not clearance.clearance_template_line_id.predecessor_stage_id:
+                            email_template_clearance_approval = self.env.ref('hr_resignation.email_template_sending_clearance_signatories')
+                            clearance.message_post_with_template(email_template_clearance_approval.id)
+                # if self.exit_interview:
+                #     self.action_create_survey()
             else:
-                raise ValidationError(_("No exit clearance template available . Please contact the HR Personnel to create a template for clearance."))
+                raise ValidationError(_("You are not allowed to this action. Please contact the administrator"))
 
     def action_hold(self):
         if self.env.user.has_group('hr_resignation.group_exit_clearance_hr_personnel'):
@@ -339,7 +350,7 @@ class HrResignationClearance(models.Model):
     clearance_template_line_id = fields.Many2one(comodel_name="exit.clearance.template.line", string="Clearance Template Line", required=False, )
     remarks = fields.Text(string="Remarks", required=False, )
     state = fields.Selection(string="Status", selection=[('draft', 'No Yet Approved'), ('approve', 'Approved'),
-                                                        ('hold', 'Hold')], required=False, default='draft')
+                                                        ('hold', 'On Hold')], required=False, default='draft')
     transaction_date = fields.Datetime(string="Transaction Date", required=False, )
     sequence = fields.Integer(string="Sequence", required=False, default=10)
 
@@ -427,10 +438,10 @@ class HrExitClearanceTemplate(models.Model):
     sequence = fields.Integer(string="Sequence", required=False, default=10)
     department_id = fields.Many2one(comodel_name="hr.department", string="Department", required=False, )
     predecessor_stage_id = fields.Many2one('exit.clearance.template.line', string="Predecessor Stage",
-                                           domain="[('clearance_template_id', '=', clearance_template_id)]")
+                                           domain="[('id', '!=', id), ('clearance_template_id', '=', clearance_template_id)]")
     with_predecessor = fields.Boolean(string="With Predecessor Stage", default=False)
     successor_stage_id = fields.Many2one('exit.clearance.template.line', string="Successor Stage",
-                                         domain="[('clearance_template_id', '=', clearance_template_id)]")
+                                         domain="[('id', '!=', id), ('clearance_template_id', '=', clearance_template_id)]")
     with_successor = fields.Boolean(string="With Successor Stage", default=False)
 
 

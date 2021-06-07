@@ -28,6 +28,7 @@ class HrResignation(models.Model):
                                             string="Probability Reason of Leaving", required=False, )
     subject = fields.Char(string="Subject", required=False, track_visibility="always")
     reason = fields.Html(string="Message", help='Message to Resigned', track_visibility="always")
+    remarks = fields.Text(string="Remarks", required=False, )
     manager_id = fields.Many2one('hr.employee', string="Immediate Head / Manager", track_visibility="always")
     state = fields.Selection(string="Status", selection=[('draft', 'Draft'), ('manager_approval', 'Waiting for Manager\'s Approval'),
                                                         ('done', 'Approved'), ('cancel', 'Cancelled')], required=False, default=False)
@@ -106,22 +107,36 @@ class HrResignation(models.Model):
                 record.state = 'done'
                 effective_date = fields.Date.today() + relativedelta(days=self.resignation_type_id.notice_period)
                 record.effective_date = effective_date
-                values = {
-                    'employee_id': record.employee_id.id,
-                    'department_id': record.department_id.id,
-                    'job_id': record.job_id.id,
-                    'company_id': record.company_id.id,
-                    'date_filed': fields.Date.today(),
-                    'date_joined': record.date_joined,
-                    'effective_date': effective_date,
-                    'probability_reason_id': record.probability_reason_id.id,
-                    'resignation_type_id': record.resignation_type_id.id,
-                    'reason': record.reason,
-                    'state': 'draft',
-                    'name': 'New',
-                    'resignation_id': record.id
-                }
-                self.env['exit.management'].sudo().create(values)
-                # res.action_confirm()
+                exit_management = self.env['exit.management']
+                employee_exist = exit_management.search([('employee_id', '=', record.employee_id.id),
+                                                         ('probability_reason_id', '=', record.probability_reason_id.id),
+                                                         ('effective_date', '=', effective_date)], limit=1)
+                if not employee_exist:
+                    values = {
+                        'employee_id': record.employee_id.id,
+                        'department_id': record.department_id.id,
+                        'job_id': record.job_id.id,
+                        'company_id': record.company_id.id,
+                        'date_filed': fields.Date.today(),
+                        'date_joined': record.date_joined,
+                        'effective_date': effective_date,
+                        'probability_reason_id': record.probability_reason_id.id,
+                        'resignation_type_id': record.resignation_type_id.id,
+                        'reason': record.reason,
+                        'state': 'draft',
+                        'name': 'New',
+                        'resignation_id': record.id
+                    }
+                    res = exit_management.sudo().create(values)
+                    if res.resignation_type_id.exit_clearance:
+                        exit_clearance_template = res.exit_clearance_template(record.employee_id.id, record.job_id.id, record.department_id.id, record.company_id.id)
+                        clearance = self.env['exit.clearance']
+                        if exit_clearance_template:
+                            for vals in exit_clearance_template:
+                                vals['resignation_id'] = res.id
+                                clearance.create(vals)
+                        else:
+                            raise ValidationError(_("No exit clearance template available . Please contact the HR Personnel to create a template for clearance."))
+
             else:
                 raise ValidationError(_("You are not allowed to this action. Please contact the administrator"))
