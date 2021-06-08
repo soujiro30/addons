@@ -137,6 +137,7 @@ class HrResignation(models.Model):
                                 clearance.create(vals)
                         else:
                             raise ValidationError(_("No exit clearance template available . Please contact the HR Personnel to create a template for clearance."))
-
+                else:
+                    raise ValidationError(_("Cannot proceed to exit management because %s exists on the said record." % record.employee_id.name))
             else:
                 raise ValidationError(_("You are not allowed to this action. Please contact the administrator"))

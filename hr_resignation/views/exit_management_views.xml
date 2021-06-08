@@ -242,7 +242,8 @@
                                     <group string="By Employee">
                                         <field name="employee_list" widget="many2many_checkboxes" nolabel="1" readonly="1"/>
                                         <button name="%(validate_turnover_checklist_employee_action_wizard)d"
-                                                string="Validate Checklist" type="action" class="oe_highlight">
+                                                string="Validate Checklist" type="action" class="oe_highlight"
+                                                groups="hr_resignation.group_exit_clearance_hr_personnel">
                                         </button>
 
                                     </group>
@@ -250,7 +251,8 @@
                                         <field name="employer_list" widget="many2many_checkboxes" nolabel="1"
                                                readonly="1"/>
                                         <button name="%(validate_turnover_checklist_employer_action_wizard)d"
-                                                string="Validate Checklist" type="action" class="oe_highlight">
+                                                string="Validate Checklist" type="action" class="oe_highlight"
+                                                groups="hr_resignation.group_exit_clearance_hr_personnel">
                                         </button>
                                     </group>
                                 </group>

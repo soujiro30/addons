@@ -148,11 +148,11 @@ class ExitManagement(models.Model):
     def compute_complete_procedure(self):
         complete_procedure = False
         for record in self:
-            # if record.exit_interview and record.response_id:
-            #     if record.response_id.state == 'done':
-            #         complete_procedure = True
-            #     else:
-            #         complete_procedure = False
+            if record.exit_interview:
+                if record.tag_ids or record.notes:
+                    complete_procedure = True
+                else:
+                    complete_procedure = False
             if record.exit_clearance and record.clearance_ids:
                 undone_clearance = record.clearance_ids.filtered(lambda x: x.state in ['draft', 'hold'])
                 if undone_clearance:
@@ -364,7 +364,7 @@ class HrResignationClearance(models.Model):
                         for line in record.resignation_id.clearance_ids.filtered(lambda x: x.clearance_template_line_id.predecessor_stage_id.id == template_line.predecessor_stage_id.id):
                             if line.state != 'approve':
                                 message += f"\nResponsible: {line.clearance_template_line_id.predecessor_stage_id.signatory_id.name}" \
-                                                     f"\nClearance: {line.clearance_template_line_id.predecessor_stage_id.name}"
+                                                     f"\nDescription: {line.clearance_template_line_id.predecessor_stage_id.name}"
                 if message:
                     raise ValidationError(_(f"The following clearance must be approved first:{message}"))
                 else:
