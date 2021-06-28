@@ -6,9 +6,10 @@
             <field name="model">survey.survey</field>
             <field name="inherit_id" ref="survey.survey_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='category']" position="after">
+                <xpath expr="//field[@name='active']" position="before">
                     <field name="company_id" options="{'no_create':True}"
                            attrs="{'readonly':[('state', 'not in',[False, 'draft'])]}"/>
+                    <field name="exit_management" groups="hr_exit_management.group_exit_management_admin"/>
 
                 </xpath>
             </field>
@@ -18,7 +19,7 @@
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">survey.survey</field>
             <field name="view_mode">kanban,tree,form</field>
-            <field name="domain">[('category', '=', 'exit_management')]</field>
+            <field name="domain">[('exit_management', '=', True)]</field>
             <field name="help" type="html">
               <p class="oe_view_nocontent_create">
                 <!-- Add Text Here -->

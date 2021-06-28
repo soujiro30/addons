@@ -1,0 +1,169 @@
+<odoo>
+    <data>
+        <!-- EM Type Tree View -->
+        <record model="ir.ui.view" id="exit_management_type_tree_view">
+            <field name="name">exit.management.type.tree</field>
+            <field name="model">exit.management.type</field>
+            <field name="arch" type="xml">
+                <tree string="Exit Management Type">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="can_employee_request"/>
+                    <field name="check_reason"/>
+                    <field name="exit_clearance"/>
+                    <field name="exit_interview"/>
+                    <field name="notice_period"/>
+<!--                    <field name="required_checklist" widget="many2many_tags" options="{'no_create':True}"/>-->
+                </tree>
+            </field>
+        </record>
+
+        <!--EM Type Form-->
+        <record model="ir.ui.view" id="exit_management_type_form_view">
+            <field name="name">exit.management.type.form</field>
+            <field name="model">exit.management.type</field>
+            <field name="arch" type="xml">
+                <form string="Exit Management Type">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" string="Name" class="oe_edit_only"/>
+                            <h2><field name="name" placeholder="EM Type"/></h2>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="check_reason"/>
+                                <field name="exit_clearance"/>
+                                <field name="exit_interview"/>
+                                <field name="departure_reason" required="1"/>
+                            </group>
+                            <group>
+                                <field name="sequence"/>
+                                <field name="notice_period"/>
+                                <field name="coe" invisible="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="employee_list" widget="many2many_tags" options="{'no_create_edit': True}"/>
+                        </group>
+                        <group>
+                            <field name="employer_list" widget="many2many_tags" options="{'no_create_edit': True}"/>
+                        </group>
+                        <group>
+                            <field name="user_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
+                        </group>
+                        <notebook>
+                            <page string="Interview Forms" attrs="{'invisible':[('exit_interview', '=', False)]}">
+                                <field name="form_ids" mode="tree" nolabel="1">
+                                    <tree editable="top">
+                                        <field name="type_id" invisible="1"/>
+                                        <field name="survey_id" options="{'options':True}" required="1"/>
+                                        <field name="company_id" options="{'options':True}" required="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- EM Type Action -->
+        <record id="exit_management_type_action_view" model="ir.actions.act_window">
+            <field name="name">Exit Management Type</field>
+            <field name="res_model">exit.management.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="exit_management_type_tree_view"/>
+        </record>
+
+        <!-- Probability Reason Tree View -->
+        <record model="ir.ui.view" id="exit_management_probability_reason_tree_view">
+            <field name="name">exit.management.probability.reason.tree</field>
+            <field name="model">exit.management.probability.reason</field>
+            <field name="arch" type="xml">
+                <tree string="Probable Reason">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="exit_management_probability_reason_form_view" model="ir.ui.view">
+            <field name="name">exit.management.probability.reason.form</field>
+            <field name="model">exit.management.probability.reason</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="Name"/>
+                            <h2><field name="name" placeholder="Probable Reason"/></h2>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="sequence"/>
+                            </group>
+                        </group>
+                        <group string="Description">
+                            <field name="description" nolabel="1" colspan="4" widget="html"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Probability Reason for Leaving Action -->
+        <record id="exit_management_probability_reason_action_view" model="ir.actions.act_window">
+            <field name="name">Probable Reason for Leaving</field>
+            <field name="res_model">exit.management.probability.reason</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="exit_management_probability_reason_tree_view"/>
+        </record>
+        
+        <!-- Probability Reason for Cancellation Tree View -->
+        <record model="ir.ui.view" id="exit_management_probability_cancellation_tree_view">
+            <field name="name">exit.management.probability.cancellation.tree</field>
+            <field name="model">exit.management.probability.cancellation</field>
+            <field name="arch" type="xml">
+                <tree string="Probable Reason">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="exit_management_probability_cancellation_form_view" model="ir.ui.view">
+            <field name="name">exit.management.probability.cancellation.form</field>
+            <field name="model">exit.management.probability.cancellation</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="Name"/>
+                            <h2><field name="name" placeholder="Probable Reason"/></h2>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="sequence"/>
+                            </group>
+                        </group>
+                        <group string="Description">
+                            <field name="description" nolabel="1" colspan="4" widget="html"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Probability Reason for Cancellation for Leaving Action -->
+        <record id="exit_management_probability_cancellation_action_view" model="ir.actions.act_window">
+            <field name="name">Probable Reason for Cancellation</field>
+            <field name="res_model">exit.management.probability.cancellation</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="exit_management_probability_cancellation_tree_view"/>
+        </record>
+    </data>
+</odoo>

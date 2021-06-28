@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_hr_coe">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="text-center" style="padding-top:80px;font-size:70px;">
+                    <p><strong>Certification</strong></p>
+                </div>
+                <style>
+                    .underline {
+                    border-bottom: 2px solid currentColor;
+                    }
+                </style>
+                <div class="page" style="text-align:justify;">
+                    <t t-foreach="docs" t-as="doc">
+                        <div class="align-center">
+                            <div style="font-size:20px;padding-top:80px;">
+                                <p style="line-height:200%;text-indent:50px;"> This is to certify that <b>MS./MR.</b>
+                                    <span class="underline" t-field="doc.coe_reference.employee_id"></span> is an
+                                    employee of <b><span t-field="doc.coe_reference.company_id"/></b><em><span
+                                            t-field="doc.coe_reference.old_name"/></em> She/He joined the group on
+                                    <span t-field="doc.coe_reference.date_start" t-options='{"format": "MMMM dd, yyyy"}'/> and
+                                    presently occupies the position of <span class="underline" t-field="doc.coe_reference.job_id"/>
+                                    .</p>
+                                <br></br>
+                                <p style="text-indent:50px;line-height:200%;font-size:20px;"> This certification is
+                                    being issued upon request of <span class="underline" t-field="doc.coe_reference.employee_id"/>
+                                    for <span class="underline" t-field="doc.coe_reference.purpose"/>.</p>
+                                <br></br>
+                                <p style="text-indent:50px;line-height:200%;font-size:20px;"> This Document is valid
+                                    until <span class="underline" t-field="doc.coe_reference.date_valid"
+                                                t-options='{"format": "MMMM dd, yyyy"}'/>.</p>
+                                <br>
+                                </br>
+
+                                <div t-if="doc.coe_reference.user_signature" class="mt32 ml64 mr4" name="signature">
+                                    <div class="offset-8 text-center">
+                                        <img t-att-src="image_data_uri(doc.coe_reference.user_signature)"
+                                             style="max-height: 4cm; max-width: 8cm;"/>
+                                    </div>
+                                    <div class="offset-8 text-center">
+                                        <strong><span class="underline" t-esc="user.name"/></strong>
+                                        <br/>
+                                        <t t-foreach="request.env['hr.employee'].search([('user_id', '=', user.id)])"
+                                           t-as="obj">
+                                            <span style="padding-right:0px;text-align:center;" t-esc="obj.job_id.name"/>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+    
+    <report
+            id="action_coe_pdf"
+            model="exit.management"
+            string="Employee Certification"
+            report_type="qweb-pdf"
+            menu="False"
+            paperformat="base.paperformat_us"
+            name="hr_exit_management.report_hr_coe"
+            file="hr_exit_management.report_hr_coe"
+            print_report_name="'COE - %s' % (object.employee_id.name)"/>
+
+</odoo>

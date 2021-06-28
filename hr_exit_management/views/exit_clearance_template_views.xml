@@ -4,7 +4,7 @@
             <field name="name">exit.clearance.template.form</field>
             <field name="model">exit.clearance.template</field>
             <field name="arch" type="xml">
-                <form string="Exit Clearance Procedure">
+                <form string="Exit Clearance Template">
                     <sheet>
                         <div class="oe_title">
                             <label for="name" class="oe_edit_only" string="Name"/>
@@ -18,7 +18,7 @@
                             </group>
                         </group>
                         <notebook>
-                            <page name="template_clearance" string="Stages">
+                            <page name="template_clearance" string="Procedures">
                                 <field name="template_ids" nolabel="1">
                                     <tree editable="bottom">
                                         <field name="sequence" widget="handle"/>
@@ -26,18 +26,17 @@
                                         <field name="department_id" options="{'no_create':True}" required="1"/>
                                         <field name="name"/>
                                         <field name="signatory_id" options="{'no_create':True}" required="1"/>
-                                        <field name="with_predecessor"/>
-                                        <field name="predecessor_stage_id" options="{'no_create':True}"
-                                               attrs="{'invisible': [('with_predecessor', '=', False)],
-                                                    'required': [('with_predecessor', '=', True)]}"/>
-                                        <field name="with_successor"/>
-                                        <field name="successor_stage_id" options="{'no_create':True}" attrs="{'invisible': [('with_successor', '=', False)],
-                                                    'required': [('with_successor', '=', True)]}"/>
+                                        <field name="dependency_id" options="{'no_create':True}"/>
                                     </tree>
                                 </field>
                             </page>
                         </notebook>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
                 </form>
             </field>
         </record>
@@ -46,7 +45,7 @@
             <field name="name">exit.clearance.template.tree</field>
             <field name="model">exit.clearance.template</field>
             <field name="arch" type="xml">
-                <tree string="Exit Clearance Procedure">
+                <tree string="Exit Clearance Template">
                     <field name="name"/>
                     <field name="company_id"/>
                     <field name="department_id"/>
@@ -69,7 +68,7 @@
         </record>
 
         <record id="exit_clearance_template_action_view" model="ir.actions.act_window">
-            <field name="name">Exit Clearance Procedure</field>
+            <field name="name">Exit Clearance Template</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">exit.clearance.template</field>
             <field name="view_mode">tree,form</field>
@@ -96,22 +95,9 @@
                             <group>
                                 <field name="sequence"/>
                                 <field name="clearance_template_id" invisible="1"/>
-                                <label for="with_predecessor"/>
-                                <div>
-                                    <field name="with_predecessor" class="oe_inline"/>
-                                    <field name="predecessor_stage_id" class="oe_inline" options="{'no_create':True}"
-                                           attrs="{'invisible': [('with_predecessor', '=', False)],
-                                                    'required': [('with_predecessor', '=', True)]}"/>
-                                </div>
-                                <label for="with_successor"/>
-                                <div>
-                                    <field name="with_successor" class="oe_inline"/>
-                                    <field name="successor_stage_id" class="oe_inline" options="{'no_create':True}"
-                                           attrs="{'invisible': [('with_successor', '=', False)],
-                                                    'required': [('with_successor', '=', True)]}"/>
-                                </div>
                                 <field name="department_id" options="{'no_create':True}" required="1"/>
                                 <field name="signatory_id" options="{'no_create':True}" required="1"/>
+                                <field name="dependency_id" options="{'no_create':True}"/>
                             </group>
                         </group>
                     </sheet>

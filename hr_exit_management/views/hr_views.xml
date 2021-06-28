@@ -1,0 +1,82 @@
+<odoo>
+    <data>
+
+        <record model="ir.actions.act_window" id="hr_resignation_employee_action_view">
+            <field name="name">Resignation Clearance</field>
+            <field name="res_model">hr.resignation</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_employee_id': [active_id], 'default_employee_id': active_id}</field>
+        </record>
+
+        <record id="view_hr_resignation_hr_employee_inherited" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherited</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='departure_description']" position="attributes">
+                    <attribute name="widget">html</attribute>
+                </xpath>
+<!--                <xpath expr="//div[@name='button_box']" position="inside">-->
+<!--                    <button name="%(hr_resignation_employee_action_view)d"-->
+<!--                            type="action" class="oe_inline oe_stat_button"-->
+<!--                            icon="fa-clipboard" help="Add/Edit/Review Resignation of employee"-->
+<!--                            groups="hr.group_hr_user">-->
+<!--                        <field name="resignation_count" widget="statinfo" string="Resignation" />-->
+<!--                    </button>-->
+<!--                </xpath>-->
+
+                <xpath expr="//field[@name='coach_id']" position="after">
+                    <field name="date_joined" readonly="1"/>
+                    <field name="date_separated" attrs="{'invisible': [('active', '=', True)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_hr_resignation_hr_employee_public_inherited" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherited</field>
+            <field name="model">hr.employee.public</field>
+            <field name="inherit_id" ref="hr.hr_employee_public_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='coach_id']" position="after">
+                    <field name="date_joined" readonly="1"/>
+                    <field name="date_separated" attrs="{'invisible': [('active', '=', True)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_employee_certificate_form1" model="ir.ui.view">
+            <field name="name">employee.certificate.form</field>
+            <field name="model">employee.certificate</field>
+            <field name="inherit_id" ref="hr_coe.view_employee_certificate_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='purpose']" position="after">
+                    <field name="exit_id" attrs="{'invisible': True}" options="{'no_create':True}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_employee_certificate_in_em" model="ir.actions.act_window">
+            <field name="name">Employee Certificate</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">employee.certificate</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_exit_id': [active_id], 'default_exit_id': active_id}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create Employee Certificate Here !
+                </p>
+            </field>
+        </record>
+
+        <record id="hr_personnel_requisition_view_form" model="ir.ui.view">
+            <field name="name">hr.personnel.requisition.form</field>
+            <field name="model">hr.personnel.requisition</field>
+            <field name="inherit_id" ref="hr_personnel_requisition.hr_personnel_requisition_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='replacement_employee_id']" position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

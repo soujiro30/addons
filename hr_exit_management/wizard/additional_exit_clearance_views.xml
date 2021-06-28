@@ -1,0 +1,43 @@
+<odoo>
+    <data>
+        <record id="additional_exit_clearance_form_view" model="ir.ui.view">
+            <field name="name">Additional Exit Clearance</field>
+            <field name="model">additional.exit.clearance</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="oe_title">
+                        <label for="name" string="Reference"/>
+                        <h2><field name="name" readonly="1"/></h2>
+                        <field name="exit_id" invisible="1"/>
+                    </div>
+                   <group>
+                       <field name="line_ids" mode="tree" nolabel="1">
+                           <tree editable="top">
+                               <field name="name" required="1"/>
+                               <field name="signatory_id" required="1" options="{'no_create':True}"/>
+                               <field name="dependency_id" options="{'no_create':True}" domain="[('id', '!=', signatory_id)]"/>
+                               <field name="line_id" invisible="1"/>
+                           </tree>
+                       </field>
+                   </group>
+                    <footer>
+                        <button name="append_exit_clearance" string="Add" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="additional_exit_clearance_view" model="ir.actions.act_window">
+            <field name="name">Additional Exit Clearance</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">additional.exit.clearance</field>
+            <field name="view_mode">form</field>
+            <field name="context">{
+                'search_default_exit_id': [active_id],
+                'default_exit_id': active_id,
+            }</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

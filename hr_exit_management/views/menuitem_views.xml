@@ -1,59 +1,60 @@
 <odoo>
     <data>
         <!--Main Menu-->
-        <menuitem id="main_resignation_root" name="Exit Management" web_icon="hr_resignation,static/description/icon.png" groups="base.group_user"/>
+        <menuitem id="main_resignation_root" name="Exit Management" web_icon="hr_exit_management,static/description/icon.png" groups="base.group_user"/>
 
         <!--Resignation-->
         <menuitem id="main_my_hr_resignation_menu" name="My Resignation" parent="main_resignation_root" sequence="1"
-                  action="my_hr_resignation_action_view" groups="hr_resignation.group_resignation_employee"/>
+                  action="my_hr_resignation_action_view" groups="hr_exit_management.group_exit_management_employee"/>
 
         <!--All Resignation-->
         <menuitem id="main_all_hr_resignation_menu" name="Resignation Letters" parent="main_resignation_root" sequence="2"
-                  action="all_hr_resignation_action_view" groups="hr_resignation.group_resignation_admin"/>
+                  action="all_hr_resignation_action_view" groups="hr_exit_management.group_exit_management_hr_personnel"/>
 
         <!--Exit Management-->
         <menuitem id="main_exit_management_menu" name="Exit Management" parent="main_resignation_root" sequence="3"
                   action="exit_management_action_view"
-                  groups="hr_resignation.group_exit_clearance_hr_personnel,hr_resignation.group_exit_clearance_admin"/>
+                  groups="hr_exit_management.group_exit_management_hr_personnel,hr_exit_management.group_exit_management_admin"/>
 
         <!--To Approve-->
         <menuitem id="main_to_approve_menu" name="To Approve" parent="main_resignation_root" sequence="4"
-                  groups="hr_resignation.group_resignation_manager,hr_resignation.group_exit_clearance_approval"/>
+                  groups="hr_exit_management.group_exit_management_employee"/>
 
         <!--To Approve EM-->
         <menuitem id="main_to_approve_hr_resignation_menu" name="Resignation Letters" parent="main_to_approve_menu" sequence="1"
-                  action="to_approve_hr_resignation_action_view" groups="hr_resignation.group_resignation_manager"/>
+                  action="to_approve_hr_resignation_action_view"/>
 
         <!--To Approve Exit Clearance-->
         <menuitem id="main_to_approve_hr_resignation_clearance_menu" name="Exit Clearance" parent="main_to_approve_menu" sequence="2"
-                  action="to_approve_exit_clearance_action_view" groups="hr_resignation.group_exit_clearance_approval"/>
+                  action="to_approve_exit_clearance_action_view"/>
 
         <!--Configuration-->
         <menuitem id="main_hr_resignation_configuration_menu" name="Configuration" parent="main_resignation_root" sequence="10"
-                  groups="hr_resignation.group_exit_clearance_hr_personnel,hr_resignation.group_resignation_admin,hr_resignation.group_exit_clearance_admin"/>
+                  groups="hr_exit_management.group_exit_management_hr_personnel,hr_exit_management.group_exit_management_admin"/>
 
         <!--EM Type-->
         <menuitem id="main_hr_resignation_type_menu" name="Exit Management Type" parent="main_hr_resignation_configuration_menu" sequence="1"
                   action="exit_management_type_action_view"/>
 
 
-        <!-- Clearance Type -->
-<!--        <menuitem id="main_exit_clearance_type_menu" parent="main_hr_resignation_configuration_menu"-->
-<!--                  action="exit_clearance_type_action_view" sequence="2"/>-->
-
         <!--Exit Clearance Template-->
-        <menuitem id="main_hr_resignation_clearance_template_menu" name="Exit Clearance Procedure"
+        <menuitem id="main_hr_resignation_clearance_template_menu" name="Exit Clearance Template"
                   parent="main_hr_resignation_configuration_menu" sequence="4"
                   action="exit_clearance_template_action_view"/>
 
-<!--        <menuitem id="main_exit_interview_form_menu" name="Exit Interview Form"-->
-<!--                  parent="main_hr_resignation_configuration_menu" sequence="5"-->
-<!--                  action="action_survey_form_view"/>-->
+        <menuitem id="main_exit_interview_form_menu" name="Exit Interview Forms"
+                  parent="main_hr_resignation_configuration_menu" sequence="5"
+                  action="action_survey_form_view"/>
 
         <!--Probability Reason-->
         <menuitem id="main_hr_resignation_probability_reason_menu"
-                  parent="main_hr_resignation_configuration_menu" sequence="99"
+                  parent="main_hr_resignation_configuration_menu" sequence="98"
                   action="exit_management_probability_reason_action_view"/>
+
+        <!--Probability Reason for Cancellation-->
+        <menuitem id="main_hr_resignation_probability_cancellation_menu"
+                  parent="main_hr_resignation_configuration_menu" sequence="99"
+                  action="exit_management_probability_cancellation_action_view"/>
 
     </data>
 </odoo>

@@ -7,6 +7,8 @@
             <field name="check_reason" eval="True"/>
             <field name="exit_clearance" eval="True"/>
             <field name="exit_interview" eval="True"/>
+            <field name="departure_reason">resigned</field>
+            <field name="notice_period">30</field>
         </record>
 
         <record id="exit_management_type_2" model="exit.management.type">
@@ -16,6 +18,8 @@
             <field name="check_reason" eval="True"/>
             <field name="exit_clearance" eval="True"/>
             <field name="exit_interview" eval="True"/>
+            <field name="departure_reason">retired</field>
+            <field name="notice_period">30</field>
         </record>
 
         <record id="exit_management_type_3" model="exit.management.type">
@@ -25,6 +29,8 @@
             <field name="check_reason" eval="True"/>
             <field name="exit_clearance" eval="True"/>
             <field name="exit_interview" eval="False"/>
+            <field name="departure_reason">layoff</field>
+            <field name="notice_period">30</field>
         </record>
 
         <record id="exit_management_type_4" model="exit.management.type">
@@ -34,6 +40,8 @@
             <field name="check_reason" eval="True"/>
             <field name="exit_clearance" eval="False"/>
             <field name="exit_interview" eval="False"/>
+            <field name="departure_reason">fired</field>
+            <field name="notice_period">0</field>
         </record>
     </data>
 </odoo>

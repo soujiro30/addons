@@ -15,10 +15,9 @@ class ValidateTurnoverChecklistEmployee(models.TransientModel):
         res = super(ValidateTurnoverChecklistEmployee, self).default_get(default_fields)
         exit_management = self.env['exit.management'].browse(self._context.get('active_id'))
         turnover_list = []
-        for chk in exit_management.employee_checklist_ids:
-            turnover_list.append(chk.turnover_id.id)
+        for chk in exit_management.checklist_ids.filtered(lambda x: x.turnover_type == 'employee'):
+            turnover_list.append(chk.turnover_employee_id.id)
         docs = list()
-        print(exit_management.employee_list.ids, exit_management.resignation_type_id.employee_list.ids)
         for r in exit_management.resignation_type_id.employee_list:
             if r.id not in turnover_list:
                 docs.append([0, 0, {
@@ -38,15 +37,18 @@ class ValidateTurnoverChecklistEmployee(models.TransientModel):
         for r in self.line_ids:
             if r.submitted:
                 validated_list.append({
-                    'turnover_id': r.turnover_id.id,
+                    'turnover_employee_id': r.turnover_id.id,
+                    'name': r.turnover_id.name,
                     'date_submitted': r.date_submitted,
                     'notes': r.notes,
+                    'turnover_type': 'employee',
+                    'user_id': self.env.user.id,
                     'exit_id': exit_management.id
                 })
                 turnover_list.append(r.turnover_id.id)
         for r in validated_list:
-            self.env['turnover.submission.checklist.employee'].create(r)
-        exit_management.write({'employee_list': [(6, 0, turnover_list)]})
+            self.env['turnover.submission.checklist'].sudo().create(r)
+        exit_management.sudo().write({'employee_list': [(6, 0, turnover_list)]})
         return {'type': 'ir.actions.act_window_close'}
 
 
@@ -74,10 +76,9 @@ class ValidateTurnoverChecklistEmployer(models.TransientModel):
         res = super(ValidateTurnoverChecklistEmployer, self).default_get(default_fields)
         exit_management = self.env['exit.management'].browse(self._context.get('active_id'))
         turnover_list = []
-        for chk in exit_management.employer_checklist_ids:
-            turnover_list.append(chk.turnover_id.id)
+        for chk in exit_management.checklist_ids.filtered(lambda x: x.turnover_type == 'employer'):
+            turnover_list.append(chk.turnover_employer_id.id)
         docs = list()
-        print(exit_management.employer_list.ids, exit_management.resignation_type_id.employer_list.ids)
         for r in exit_management.resignation_type_id.employer_list:
             if r.id not in turnover_list:
                 docs.append([0, 0, {
@@ -97,15 +98,18 @@ class ValidateTurnoverChecklistEmployer(models.TransientModel):
         for r in self.line_ids:
             if r.submitted:
                 validated_list.append({
-                    'turnover_id': r.turnover_id.id,
+                    'turnover_employer_id': r.turnover_id.id,
+                    'name': r.turnover_id.name,
                     'date_submitted': r.date_submitted,
                     'notes': r.notes,
+                    'turnover_type': 'employer',
+                    'user_id': self.env.user.id,
                     'exit_id': exit_management.id
                 })
                 turnover_list.append(r.turnover_id.id)
         for r in validated_list:
-            self.env['turnover.submission.checklist.employer'].create(r)
-        exit_management.write({'employer_list': [(6, 0, turnover_list)]})
+            self.env['turnover.submission.checklist'].sudo().create(r)
+        exit_management.sudo().write({'employer_list': [(6, 0, turnover_list)]})
         return {'type': 'ir.actions.act_window_close'}
 
 
